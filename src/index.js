@@ -91,11 +91,34 @@ registerBlockType( name, {
 		from: [
 			{
 				type: 'block',
+				isMultiBlock: true,
 				blocks: [ '*' ],
-				transform: ( { content } ) => {
-					return createBlock( 'tiptip/hyperlink-group', {
-						content,
+				__experimentalConvert( blocks ) {
+					// Avoid transforming a single `core/group` Block
+					if (
+						blocks.length === 1 &&
+						blocks[ 0 ].name === 'tiptip/hyperlink-group'
+					) {
+						return;
+					}
+
+					// Clone the Blocks to be Grouped
+					// Failing to create new block references causes the original blocks
+					// to be replaced in the switchToBlockType call thereby meaning they
+					// are removed both from their original location and within the
+					// new group block.
+					const groupInnerBlocks = blocks.map( ( block ) => {
+						return createBlock(
+							block.name,
+							block.attributes,
+							block.innerBlocks
+						);
 					} );
+
+					return createBlock(
+						'tiptip/hyperlink-group',
+						groupInnerBlocks
+					);
 				},
 			},
 		]
