@@ -97,7 +97,7 @@ registerBlockType( name, {
 					// Avoid transforming a single `core/group` Block
 					if (
 						blocks.length === 1 &&
-						blocks[ 0 ].name === 'tiptip/hyperlink-group'
+						blocks[ 0 ].name === 'tiptip/hyperlink-group-block'
 					) {
 						return;
 					}
@@ -116,8 +116,10 @@ registerBlockType( name, {
 					} );
 
 					return createBlock(
-						'tiptip/hyperlink-group',
+						'tiptip/hyperlink-group-block',
+						{},
 						groupInnerBlocks
+						
 					);
 				},
 			},

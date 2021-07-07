@@ -1,7 +1,7 @@
 {
 	"name": "hyperlink-group",
-	"version": "0.9.1",
-	"description": "Displays a description list using the dl element consist of a series of term and description pairs (dt, dd).",
+	"version": "1.0.1",
+	"description": "Combine blocks into a group wrapped with an hyperlink.",
 	"author": "kometschuh",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",

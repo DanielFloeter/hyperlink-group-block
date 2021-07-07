@@ -4,16 +4,16 @@ Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, a, anchor
 Requires at least: 5.6
 Tested up to:      5.8
-Stable tag:        0.9.1
+Stable tag:        1.0.1
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Combine blocks into a group wrapped with an hyperlink.
+Combine blocks into a group wrapped with an hyperlink (<a>).
 
 == Description ==
 
-Combine blocks into a group wrapped with an hyperlink.
+Combine blocks into a group wrapped with an hyperlink (<a>).
 
 = Features =
 * Background color and hover color (from core/button)
@@ -39,14 +39,15 @@ No, that is illegal and causes errors in the renderd HTML.
 
 == Screenshots ==
 
-1. The Hyperlink Group Block in the front-end view.
-2. Rendered HTML
-3. From the Block control or with shortcuts, you can insert description list pairs (dt, dd) before or after the current selection or delete a description list.
-4. Grid style
-5. Block Styles 'transformation' without change any code.
-6. Seperate Term (dt) and Description (dd) settings
+1. Hyperlink Group Block to group Blocks with an hyperlink.
+2. Wrap Blocks with a link.
+3. Rendered HTML.
+4. Advanced Settings for rel attributes.
 
 == Changelog ==
+
+= 1.0.1 - July 07th 2021 =
+* Transforms
 
 = 0.9.1 - July 06th 2021 =
 * Release

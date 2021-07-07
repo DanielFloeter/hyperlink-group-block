@@ -1,6 +1,6 @@
 {
 	"apiVersion": 2,
-	"name": "tiptip/hyperlink-group",
+	"name": "tiptip/hyperlink-group-block",
 	"title": "Hyperlink Group",
 	"category": "design",
     "supports": {
