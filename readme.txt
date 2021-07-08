@@ -14,13 +14,21 @@ Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
 == Description ==
 
 Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
+After inserting a Hyperlink Group Block, a Block inserter icon will be displayed to allow you to add new Blocks inside that Hyperlink Group Block.
+
+= Grouping Existing Blocks =
+It's also possible to group existing Blocks. 
+Select the Blocks which should be grouped with a Hyperlink. The Block Toolbar will appear. Click on the Block icon and select the Hyperlink Block to transform the selected Blocks to an Hyperlink Block with some InnerBlocks.
+
+= Advanced =
+In the Advanced Tab link [rel attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel) can be set.
 
 = Features =
 * Wrap Blocks with a hyperlink
-* Transform Blocks to a group wrapped with a anchor tag
-* Set the link
+* Transform Blocks into a group wrapped with an HTML anchor tag (&lt;a&gt;)
+* Set the link href attribute
 * Set rel attributes
-* Open in a new window
+* Option open in a new window
 
 = Contribute =
 While using this plugin if you find any bug or any conflict, please submit an issue at [Github](https://github.com/DanielFloeter/hyperlink-group-block) (If possible with a pull request).
@@ -47,6 +55,7 @@ No, that is illegal and causes errors in the renderd HTML.
 2. Wrap Blocks with a link.
 3. Rendered HTML.
 4. Advanced Settings for rel attributes.
+5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
 
