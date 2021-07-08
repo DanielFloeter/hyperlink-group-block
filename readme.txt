@@ -16,7 +16,11 @@ Combine blocks into a group wrapped with an hyperlink (<a>).
 Combine blocks into a group wrapped with an hyperlink (<a>).
 
 = Features =
-* Background color and hover color (from core/button)
+* Wrap Blocks with a hyperlink
+* Transform Blocks to a group wrapped with a anchor tag
+* Set the link
+* Set rel attributes
+* Open in a new window
 
 = Contribute =
 While using this plugin if you find any bug or any conflict, please submit an issue at [Github](https://github.com/DanielFloeter/hyperlink-group-block) (If possible with a pull request).
