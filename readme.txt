@@ -9,11 +9,11 @@ Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Combine blocks into a group wrapped with an hyperlink (<a>).
+Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
 
 == Description ==
 
-Combine blocks into a group wrapped with an hyperlink (<a>).
+Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
 
 = Features =
 * Wrap Blocks with a hyperlink
