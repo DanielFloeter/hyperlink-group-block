@@ -3,7 +3,7 @@ Contributors:      kometschuh
 Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
-Tested up to:      5.8
+Tested up to:      5.9
 Stable tag:        1.0.1
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
@@ -15,6 +15,9 @@ Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
 
 Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
 After inserting a Hyperlink Group Block, a Block inserter icon will be displayed to allow you to add new Blocks inside that Hyperlink Group Block.
+
+= Tip Top Press =
+We're [Tip Top Press](http://tiptoppress.com/) and create Gutenberg Blocks for Wordpress. If you want to know about what we're working on and you are interested in backgrounds then you can read all newes storys on our [blog](http://tiptoppress.com/blog/?utm_source=wp.org&utm_medium=readme.txt&utm_campaign=hyperlink+group+block).
 
 = Grouping Existing Blocks =
 It's also possible to group existing Blocks. 
