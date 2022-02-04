@@ -13,7 +13,7 @@ import {
 	InnerBlocks,
 	useBlockProps,
 	InspectorAdvancedControls,
-	__experimentalUseInnerBlocksProps as useInnerBlocksProps,
+	useInnerBlocksProps,
 	__experimentalUseEditorFeature as useEditorFeature,
 	__experimentalLinkControl as LinkControl,
 	store as blockEditorStore,
