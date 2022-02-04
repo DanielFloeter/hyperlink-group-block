@@ -6,12 +6,15 @@
     "supports": {
         "html": true,
         "anchor": true,
-        "align": false,
+        "align": true,
         "color": {
-			"__experimentalSkipSerialization": true,
+			"background": true,
 			"gradients": true
 		},
-        "__experimentalSelector": ".wp-block-button__link"
+		"spacing": {
+			"maring": true,
+			"padding": true
+		}
     },
     "attributes": {
 		"url": {

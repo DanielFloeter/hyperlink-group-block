@@ -4,7 +4,7 @@ Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
 Tested up to:      5.9
-Stable tag:        1.0.2
+Stable tag:        1.0.3
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -62,7 +62,11 @@ No, that is illegal and causes errors in the renderd HTML.
 
 == Changelog ==
 
-= 1.0.2 - July 07th 2021 =
+= 1.0.3 - February 04th 2022 =
+* Bugfix Disable focus if link picker is open
+* Bugfix Set color
+
+= 1.0.2 - February 04th 2022 =
 * Bugfix __experimental code deleted in Gutenberg 12.5
 
 = 1.0.1 - July 07th 2021 =

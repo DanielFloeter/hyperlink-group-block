@@ -99,6 +99,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 		};
 		const linkControl = ( isURLPickerOpen || urlIsSetandSelected ) && (
 			<Popover
+				focusOnMount={ false }
 				position="bottom center"
 				onClose={ () => setIsURLPickerOpen( false ) }
 				anchorRef={ anchorRef?.current }
