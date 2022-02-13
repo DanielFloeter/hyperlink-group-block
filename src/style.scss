@@ -5,7 +5,18 @@
  * Replace them with your own styles or remove the file completely.
  */
 
-.wp-block-tiptip-hyperlink-group {
+ /* editor */
+.wp-block-tiptip-hyperlink-group-block {
+	cursor: pointer;
+}
+
+/* front end */
+
+.wp-block-hyperlink-group {
+	display: block;
+}
+
+.wp-block-tiptip-hyperlink-group-block {
 
 	// "Float" style variation.
 	&.is-style-grid {
@@ -16,10 +27,10 @@
 			// 	padding-left: 2em;
 			// }
 
-			display: grid;
+			// display: grid;
 			// grid-template-columns: auto 1fr;
-			grid-template-columns: auto auto;
-			align-items: center;
+			// grid-template-columns: auto auto;
+			// align-items: center;
 		}
 	}
 }

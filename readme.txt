@@ -4,7 +4,7 @@ Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.9
 Tested up to:      5.9
-Stable tag:        1.0.3
+Stable tag:        1.0.4
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -17,7 +17,7 @@ Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
 After inserting a Hyperlink Group Block, a Block inserter icon will be displayed to allow you to add new Blocks inside that Hyperlink Group Block.
 
 = Tip Top Press =
-We're [Tip Top Press](http://tiptoppress.com/) and create Gutenberg Blocks for Wordpress. If you want to know about what we're working on and you are interested in backgrounds then you can read all newes storys on our [blog](http://tiptoppress.com/blog/?utm_source=wp.org&utm_medium=readme.txt&utm_campaign=hyperlink+group+block).
+We're [Tip Top Press](http://tiptoppress.com/?utm_source=wp.org&utm_medium=readme.txt&utm_campaign=hyperlink+group+block&utm_content=TipTopPress) and create Gutenberg Blocks for Wordpress. If you want to know about what we're working on and you are interested in backgrounds then you can read all newes storys on our [blog](http://tiptoppress.com/blog/?utm_source=wp.org&utm_medium=readme.txt&utm_campaign=hyperlink+group+block&utm_content=blog).
 
 = Grouping Existing Blocks =
 It's also possible to group existing Blocks. 
@@ -32,6 +32,7 @@ In the Advanced Tab link [rel attributes](https://developer.mozilla.org/en-US/do
 * Set the link href attribute
 * Set rel attributes
 * Option open in a new window
+* Delete inner anchor elements
 
 = Contribute =
 While using this plugin if you find any bug or any conflict, please submit an issue at [Github](https://github.com/DanielFloeter/hyperlink-group-block) (If possible with a pull request).
@@ -61,6 +62,9 @@ No, that is illegal and causes errors in the renderd HTML.
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
+
+= 1.0.4 - February 13th 2022 =
+* Delete inner anchor elements
 
 = 1.0.3 - February 04th 2022 =
 * Bugfix Disable focus if link picker is open

@@ -14,17 +14,17 @@ export default function save({ attributes, className }) {
 	const wrapperClasses = classnames( className );
 
 	return (
-		<div { ...useBlockProps.save( { className: wrapperClasses } ) }>
-			<a 
-				className={ buttonClasses }
-				href={ url }
-				title={ title }
-				target={ linkTarget }
-				rel={ rel }
-			>
-				<InnerBlocks.Content />
-			</a>
-		</div>
+		<a 
+			className={ buttonClasses }
+			href={ url }
+			title={ title }
+			target={ linkTarget }
+			rel={ rel }
+		>
+			<div { ...useBlockProps.save( { className: wrapperClasses } ) }>
+					<InnerBlocks.Content />
+			</div>
+		</a>
 	);
 }
 
