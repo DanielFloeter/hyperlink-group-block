@@ -13,6 +13,8 @@
  * @package         tiptip
  */
 
+namespace hyperlinkGroup;
+
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  * Behind the scenes, it registers also all assets so they can be enqueued
@@ -23,13 +25,13 @@
 function create_hyperlink_group_block_init() {
 	register_block_type_from_metadata( __DIR__ );
 }
-add_action( 'init', 'create_hyperlink_group_block_init' );
+add_action( 'init', __NAMESPACE__ . '\create_hyperlink_group_block_init' );
 
 /**
  * Strip inner anchor elements
  *
  */
-function add_button_size_class( $block_content = '', $block = [] ) { 
+function add_button_size_class( $block_content = '', $block = [] ) {
 	if ( isset( $block['blockName'] ) && 'tiptip/hyperlink-group-block' === $block['blockName'] ) {
 		$stripAnchors = function( $block ) use ( &$stripAnchors, &$html, &$block_content ) {
 			foreach( $block as $b){
@@ -55,31 +57,11 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 					$stripAnchors( $b['innerBlocks'] );
 				}
 			}
-			// foreach( $block as $b){
-			// 	if( $b['innerContent'][0] ) {
-			// 		$b['innerContent'][0] = str_replace(
-			// 			'<a',
-			// 			'<span',
-			// 			$b['innerContent'][0]
-			// 		);
-			// 		$b['innerContent'][count($b['innerContent'])-1] = str_replace(
-			// 			'</a>',
-			// 			'</span>',
-			// 			end($b['innerContent'])
-			// 		);
-			// 		$html .= $b['innerContent'][0];
-			// 	}
-			// 	if( ! empty( $b['innerBlocks'] ) ) {
-			// 		$stripAnchors( $b['innerBlocks'] );
-			// 		$html .= end($b['innerContent']);
-			// 	}
-			// }
 		};
 		$stripAnchors( $block['innerBlocks'] );
 
 		return $block_content;
-		//return $block['innerContent'][0] . $html . end($block['innerContent']);
 	}
 	return $block_content;
 }
-add_filter( 'render_block', 'add_button_size_class', 10, 2 );
+add_filter( 'render_block', __NAMESPACE__ . '\add_button_size_class', 10, 2 );
