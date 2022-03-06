@@ -2,7 +2,7 @@
 Contributors:      kometschuh
 Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
-Requires at least: 5.9
+Requires at least: 5.6
 Tested up to:      5.9
 Stable tag:        1.0.4
 Requires PHP:      7.0.0
