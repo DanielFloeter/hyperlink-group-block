@@ -13,15 +13,18 @@ import {
 	InnerBlocks,
 	useBlockProps,
 	InspectorAdvancedControls,
-	useInnerBlocksProps,
-	__experimentalUseEditorFeature as useEditorFeature,
-	__experimentalLinkControl as LinkControl,
+	__experimentalUseInnerBlocksProps,
+	useInnerBlocksProps as stableUseInnerBlocksProps,
+	__experimentalLinkControl,
+	LinkControl as stableLinkControl,
 	store as blockEditorStore,
-	BlockControls,
-	RichText 
+	BlockControls
 } from '@wordpress/block-editor';
 import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
 import { link, linkOff } from '@wordpress/icons';
+
+export const useInnerBlocksProps = __experimentalUseInnerBlocksProps || stableUseInnerBlocksProps; // WP +5.9
+export const LinkControl         = __experimentalLinkControl || stableLinkControl; // WP +5.9
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
