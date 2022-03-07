@@ -1,6 +1,6 @@
 {
 	"name": "hyperlink-group",
-	"version": "1.0.5",
+	"version": "1.0.6",
 	"description": "Combine blocks into a group wrapped with an hyperlink.",
 	"author": "kometschuh",
 	"license": "GPL-2.0-or-later",
