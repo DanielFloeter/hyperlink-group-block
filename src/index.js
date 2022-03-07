@@ -1,7 +1,9 @@
+import classnames from 'classnames';
 import { registerBlockType } from '@wordpress/blocks';
 import { __, _x } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { link as icon } from '@wordpress/icons';
+import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 import './style.scss';
 
@@ -26,7 +28,37 @@ registerBlockType( name, {
 		__('hyperlink'),
 		__('link'),
         __('tiptoppress'),
-    ],
+	],
+	deprecated: [
+		{
+			save( { attributes, className } ) {
+				const {
+					linkTarget,
+					rel,
+					title,
+					url,
+				} = attributes;
+				const buttonClasses = classnames(
+					'wp-block-hyperlink-group',
+				);
+				const wrapperClasses = classnames( className );
+
+				return (
+					<div { ...useBlockProps.save( { className: wrapperClasses } ) }>
+						<a
+							className={ buttonClasses }
+							href={ url }
+							title={ title }
+							target={ linkTarget }
+							rel={ rel }
+						>
+							<InnerBlocks.Content />
+						</a>
+					</div>
+				);
+			},
+		},
+	],
 	example: {
 		attributes: {
 			style: {
@@ -119,7 +151,7 @@ registerBlockType( name, {
 						'tiptip/hyperlink-group-block',
 						{},
 						groupInnerBlocks
-						
+
 					);
 				},
 			},
