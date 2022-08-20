@@ -1,17 +1,19 @@
 import classnames from 'classnames';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
-export default function save({ attributes, className }) {
+export default function save({ attributes }) {
 	const { 
 		linkTarget,
 		rel,
 		title,
 		url,
+		className
 	} = attributes;
+	
 	const buttonClasses = classnames(
 		'wp-block-hyperlink-group',
+		className
 	);
-	const wrapperClasses = classnames( className );
 
 	return (
 		<a 
@@ -21,7 +23,7 @@ export default function save({ attributes, className }) {
 			target={ linkTarget }
 			rel={ rel }
 		>
-			<div { ...useBlockProps.save( { className: wrapperClasses } ) }>
+			<div>
 					<InnerBlocks.Content />
 			</div>
 		</a>
