@@ -7,12 +7,10 @@ export default function save({ attributes }) {
 		rel,
 		title,
 		url,
-		className
 	} = attributes;
-	
+
 	const buttonClasses = classnames(
 		'wp-block-hyperlink-group',
-		className
 	);
 
 	return (
