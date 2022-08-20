@@ -7,11 +7,13 @@ export default function save({ attributes }) {
 		rel,
 		title,
 		url,
+		className,
 	} = attributes;
 
 	const buttonClasses = classnames(
 		'wp-block-hyperlink-group',
 	);
+	const wrapperClasses = classnames( className );
 
 	return (
 		<a 
@@ -21,7 +23,7 @@ export default function save({ attributes }) {
 			target={ linkTarget }
 			rel={ rel }
 		>
-			<div>
+			<div { ...useBlockProps.save( { className: wrapperClasses } ) }>
 					<InnerBlocks.Content />
 			</div>
 		</a>

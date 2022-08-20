@@ -31,6 +31,7 @@ registerBlockType( name, {
 	],
 	deprecated: [
 		{
+			...metadata,
 			save( { attributes, className } ) {
 				const {
 					linkTarget,
