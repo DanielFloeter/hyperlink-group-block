@@ -63,6 +63,9 @@ No, that is illegal and causes errors in the renderd HTML.
 
 == Changelog ==
 
+= 1.0.8 - August 20th 2022 =
+* Render CSS classes
+
 = 1.0.7 - August 20th 2022 =
 * No saving when adding CSS classes
 
