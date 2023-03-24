@@ -3,8 +3,8 @@ Contributors:      kometschuh
 Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
-Tested up to:      6.0
-Stable tag:        1.0.8
+Tested up to:      6.2
+Stable tag:        1.0.9
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -28,6 +28,7 @@ In the Advanced Tab link [rel attributes](https://developer.mozilla.org/en-US/do
 
 = Features =
 * Wrap Blocks with a hyperlink
+* Use link from Query Loop Block
 * Transform Blocks into a group wrapped with an HTML anchor tag (&lt;a&gt;)
 * Set the link href attribute
 * Set rel attributes
@@ -62,6 +63,9 @@ No, that is illegal and causes errors in the renderd HTML.
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
+
+= 1.0.9 - March 24th 2023 =
+* Use link from Query Loop Block
 
 = 1.0.8 - August 20th 2022 =
 * Render CSS classes

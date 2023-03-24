@@ -8,6 +8,8 @@ import {
 	TextControl,
 	ToolbarButton,
 	Popover,
+	ToggleControl,
+	PanelBody,
 } from '@wordpress/components';
 import { 
 	InnerBlocks,
@@ -18,7 +20,8 @@ import {
 	__experimentalLinkControl,
 	LinkControl as stableLinkControl,
 	store as blockEditorStore,
-	BlockControls
+	BlockControls,
+	InspectorControls,
 } from '@wordpress/block-editor';
 import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
 import { link, linkOff } from '@wordpress/icons';
@@ -33,6 +36,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 		linkTarget,
 		rel,
 		url,
+		queryLoopLink,
 	} = attributes;
 	const { hasInnerBlocks } = useSelect(
 		( select ) => {
@@ -52,6 +56,12 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 			? undefined
 			: InnerBlocks.ButtonBlockAppender
 	} );
+	const onQueryLoopLink = useCallback(
+		( value ) => {
+			setAttributes( { queryLoopLink: value } );
+		},
+		[ setAttributes ]
+	);
 	const onSetLinkRel = useCallback(
 		( value ) => {
 			setAttributes( { rel: value } );
@@ -174,6 +184,18 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 					onToggleOpenInNewTab={ onToggleOpenInNewTab }
 					anchorRef={ ref }
 				/>
+				<InspectorControls>
+					<PanelBody title={ __( 'Link settings' ) }>
+						<ToggleControl
+							label="Use link from Query Loop Block"
+							help={
+								'Link to the current post when using inside a Query Loop Block.'
+							}
+							checked={ queryLoopLink }
+							onChange={ onQueryLoopLink }
+						/>
+					</PanelBody>
+				</InspectorControls>
 				<InspectorAdvancedControls>
 					<TextControl
 						label={ __( 'Link rel' ) }

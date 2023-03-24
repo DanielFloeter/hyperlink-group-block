@@ -19,9 +19,7 @@
     "attributes": {
 		"url": {
 			"type": "string",
-			"source": "attribute",
-			"selector": "a",
-			"attribute": "href"
+			"default": ""
 		},
 		"title": {
 			"type": "string",
@@ -49,6 +47,10 @@
 		},
         "gradient": {
 			"type": "string"
+		},
+		"queryLoopLink": {
+			"type": "boolean",
+			"default": false
 		}
     },
 	"textdomain": "hyperlink-group-block",

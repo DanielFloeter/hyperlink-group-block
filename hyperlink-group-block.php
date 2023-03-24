@@ -3,7 +3,7 @@
  * Plugin Name:     Hyperlink Group Block
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
- * Version:         1.0.8
+ * Version:         1.0.9
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later
@@ -15,6 +15,46 @@
 
 namespace hyperlinkGroup;
 
+function render_block_core_post_title( $attributes, $content, $block ) { //echo var_dump($attributes);
+	if ( ! get_the_ID() ) {
+		return '';
+	}
+
+	$post_ID = get_the_ID();
+	$title   = get_the_title();
+
+	if ( ! $title ) {
+		return '';
+	}
+
+	//$tag_name         = 'h2';
+	$align_class_name = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
+
+	//if ( isset( $attributes['level'] ) ) {
+	//	$tag_name = 0 === $attributes['level'] ? 'p' : 'h' . $attributes['level'];
+	//}
+
+	//if ( isset( $attributes['isLink'] ) && $attributes['isLink'] ) {
+		$rel   = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
+		//$title = sprintf( '<a href="%1$s" target="%2$s" %3$s>%4$s</a>', get_the_permalink( $post_ID ), esc_attr( $attributes['linkTarget'] ), $rel, $title );
+	//}
+	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
+
+	$post_url = $attributes['queryLoopLink'] ? get_the_permalink( $post_ID ) : $attributes['url'];
+	
+	$inner_blocks_html = '';
+	foreach ( $block->inner_blocks as $inner_block ) {
+		$inner_block_content = $inner_block->render();
+		$inner_blocks_html .= $inner_block_content;
+	}
+	return sprintf(
+		'<a href="%1$s" %2$s>%3$s</a>',
+		$post_url,
+		$wrapper_attributes,
+		$inner_blocks_html
+	);
+}
+
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  * Behind the scenes, it registers also all assets so they can be enqueued
@@ -23,7 +63,11 @@ namespace hyperlinkGroup;
  * @see https://developer.wordpress.org/block-editor/tutorials/block-tutorial/writing-your-first-block-type/
  */
 function create_hyperlink_group_block_init() {
-	register_block_type_from_metadata( __DIR__ );
+	register_block_type_from_metadata( __DIR__ ,
+	array(
+	   'render_callback' => __NAMESPACE__ . '\render_block_core_post_title',
+   )
+);
 }
 add_action( 'init', __NAMESPACE__ . '\create_hyperlink_group_block_init' );
 
