@@ -15,7 +15,7 @@
 
 namespace hyperlinkGroup;
 
-function render_block_core_post_title( $attributes, $content, $block ) { //echo var_dump($attributes);
+function render_block_core_post_title( $attributes, $content, $block ) {
 	if ( ! get_the_ID() ) {
 		return '';
 	}
@@ -27,7 +27,6 @@ function render_block_core_post_title( $attributes, $content, $block ) { //echo 
 		return '';
 	}
 
-	//$tag_name         = 'h2';
 	$align_class_name  = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
 	$linkTarget        = ! empty( $attributes['linkTarget'] ) ? 'target="' . esc_attr( $attributes['linkTarget'] ) . '"' : '';
 	$rel               = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';

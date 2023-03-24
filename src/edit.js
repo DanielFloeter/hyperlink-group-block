@@ -1,5 +1,4 @@
 import classnames from 'classnames';
-
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useCallback, useState, useRef } from '@wordpress/element';
