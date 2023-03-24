@@ -25,19 +25,21 @@ import {
 } from '@wordpress/block-editor';
 import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
 import { link, linkOff } from '@wordpress/icons';
+import { useEntityProp } from '@wordpress/core-data';
 
 export const useInnerBlocksProps = __experimentalUseInnerBlocksProps || stableUseInnerBlocksProps; // WP +5.9
 export const LinkControl         = __experimentalLinkControl || stableLinkControl; // WP +5.9
 
 const NEW_TAB_REL = 'noreferrer noopener';
 
-export default function Edit({ attributes, setAttributes, isSelected, clientId }) {
+export default function Edit({ attributes, setAttributes, isSelected, clientId, context: { postType, postId, queryId } }) {
 	const {
 		linkTarget,
 		rel,
 		url,
 		queryLoopLink,
 	} = attributes;
+	const [ queryLoopUrl ] = useEntityProp( 'postType', postType, 'link', postId );
 	const { hasInnerBlocks } = useSelect(
 		( select ) => {
 			const { getBlock, getSettings } = select( blockEditorStore );
@@ -95,6 +97,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 		onToggleOpenInNewTab,
 		anchorRef,
 	} ) {
+		url = queryLoopLink ? queryLoopUrl : url;
 		const [ isURLPickerOpen, setIsURLPickerOpen ] = useState( false );
 		const urlIsSet = !! url;
 		const urlIsSetandSelected = urlIsSet && isSelected;

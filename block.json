@@ -16,28 +16,20 @@
 			"padding": true
 		}
     },
+	"usesContext": [ "postId", "postType", "queryId" ],
     "attributes": {
 		"url": {
 			"type": "string",
 			"default": ""
 		},
 		"title": {
-			"type": "string",
-			"source": "attribute",
-			"selector": "a",
-			"attribute": "title"
+			"type": "string"
 		},
         "linkTarget": {
-			"type": "string",
-			"source": "attribute",
-			"selector": "a",
-			"attribute": "target"
+			"type": "string"
 		},
 		"rel": {
-			"type": "string",
-			"source": "attribute",
-			"selector": "a",
-			"attribute": "rel"
+			"type": "string"
 		},
         "backgroundColor": {
 			"type": "string"
