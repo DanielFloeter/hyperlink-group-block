@@ -9,7 +9,6 @@ import {
 	Popover,
 	ToggleControl,
 	PanelBody,
-	ColorPalette,
 } from '@wordpress/components';
 import { 
 	InnerBlocks,
@@ -22,6 +21,7 @@ import {
 	store as blockEditorStore,
 	BlockControls,
 	InspectorControls,
+	PanelColorSettings,
 } from '@wordpress/block-editor';
 import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
 import { link, linkOff } from '@wordpress/icons';
@@ -38,6 +38,8 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		rel,
 		url,
 		queryLoopLink,
+		colorText,
+		colorBkg,
 		colorBkgHover,
 	} = attributes;
 	const [ queryLoopUrl ] = useEntityProp( 'postType', postType, 'link', postId );
@@ -89,9 +91,6 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		},
 		[ rel, setAttributes ]
 	);
-	const colors = wp.data.select( "core/block-editor" ).getSettings().colors.filter(
-		word => word['origin'] !== 'core'
-		);
 
 	function URLPicker( {
 		isSelected,
@@ -184,7 +183,9 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 				className={ classnames( blockProps.className ) }
 				style={
                     {
-                        '--color-bkg-hover': attributes.colorBkgHover,
+						'--color-text': colorText?colorText:'',
+						'--color-bkg': colorBkg?colorBkg:'',
+                        '--color-bkg-hover': colorBkgHover?colorBkgHover:colorBkg,
                     }}
 			>
 				<URLPicker
@@ -206,14 +207,35 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 							onChange={ onQueryLoopLink }
 						/>
 					</PanelBody>
-					<PanelBody title={ __( 'Background Hover' ) } initialOpen={false}>
-						<ColorPalette
-							enableAlpha={true}
-							colors={ colors }
-							value={ colorBkgHover }
-							onChange={ ( newColor ) => setAttributes( {colorBkgHover: newColor} ) }
-						/>
-					</PanelBody>
+				</InspectorControls>
+				<InspectorControls group="styles">
+					<PanelColorSettings
+							title={ __( 'Color' ) }
+							colorSettings={ [
+								{
+									value: colorText,
+									onChange: ( colorValue ) => setAttributes( { colorText: colorValue } ),
+									label: __( 'Text' ),
+									enableAlpha: true,
+									clearable: true,
+								},
+								{
+									value: colorBkg,
+									onChange: ( colorValue ) => setAttributes( { colorBkg: colorValue } ),
+									label: __( 'Background' ),
+									enableAlpha: true,
+									clearable: true,
+								},
+								{
+									value: colorBkgHover,
+									onChange: ( colorValue ) => setAttributes( { colorBkgHover: colorValue } ),
+									label: __( 'Background hover' ),
+									enableAlpha: true,
+									clearable: true,
+								},
+							] }
+						>
+					</PanelColorSettings>
 				</InspectorControls>
 				<InspectorAdvancedControls>
 					<TextControl

@@ -3,7 +3,7 @@
  * Plugin Name:     Hyperlink Group Block
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
- * Version:         1.1.0
+ * Version:         1.1.1
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later
@@ -72,7 +72,9 @@ add_action( 'init', __NAMESPACE__ . '\create_hyperlink_group_block_init' );
  */
 function add_button_size_class( $block_content = '', $block = [] ) {
 	if ( isset( $block['blockName'] ) && 'tiptip/hyperlink-group-block' === $block['blockName'] ) {
-		$color_bkg_hover = (isset( $block['attrs']['colorBkgHover'] ) && $block['attrs']['colorBkgHover'] !== '') ? '--color-bkg-hover:' . $block['attrs']['colorBkgHover'] : '';
+		$color_text      = (isset( $block['attrs']['colorText'] ) && $block['attrs']['colorText'] !== '') ? $block['attrs']['colorText'] : '';
+		$color_bkg       = (isset( $block['attrs']['colorBkg'] ) && $block['attrs']['colorBkg'] !== '') ? $block['attrs']['colorBkg'] : '';
+		$color_bkg_hover = (isset( $block['attrs']['colorBkgHover'] ) && $block['attrs']['colorBkgHover'] !== '') ? $block['attrs']['colorBkgHover'] : $color_bkg;
 
 		$stripAnchors = function( $block ) use ( &$stripAnchors, &$html, &$block_content ) {
 			foreach( $block as $b){
@@ -101,7 +103,7 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 		};
 		$stripAnchors( $block['innerBlocks'] );
 
-        $content = '<div style="' . $color_bkg_hover . ';">';
+        $content = '<div style="--color-text:' . $color_text . ';--color-bkg:' . $color_bkg . ';--color-bkg-hover:' . $color_bkg_hover . ';">';
         $content .= $block_content;
         $content .= '</div>';
         return $content;
