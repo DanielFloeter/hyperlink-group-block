@@ -12,7 +12,7 @@
 			"gradients": true
 		},
 		"spacing": {
-			"maring": true,
+			"margin": true,
 			"padding": true
 		}
     },
