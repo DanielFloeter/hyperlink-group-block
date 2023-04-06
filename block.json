@@ -18,6 +18,9 @@
     },
 	"usesContext": [ "postId", "postType", "queryId" ],
     "attributes": {
+		"colorBkgHover": {
+			"type": "string"
+		},
 		"url": {
 			"type": "string",
 			"default": ""

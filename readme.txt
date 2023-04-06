@@ -4,7 +4,7 @@ Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
 Tested up to:      6.2
-Stable tag:        1.0.9
+Stable tag:        1.1.0
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -33,6 +33,7 @@ In the Advanced Tab link [rel attributes](https://developer.mozilla.org/en-US/do
 * Set the link href attribute
 * Set rel attributes
 * Option open in a new window
+* Set hover background color
 * Delete inner anchor elements
 
 = Contribute =
@@ -63,6 +64,9 @@ No, that is illegal and causes errors in the renderd HTML.
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
+
+= 1.1.0 - April 06th 2023 =
+* Option Background Color onhover
 
 = 1.0.9 - March 24th 2023 =
 * Use link from Query Loop Block

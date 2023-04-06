@@ -9,6 +9,7 @@ import {
 	Popover,
 	ToggleControl,
 	PanelBody,
+	ColorPalette,
 } from '@wordpress/components';
 import { 
 	InnerBlocks,
@@ -37,6 +38,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		rel,
 		url,
 		queryLoopLink,
+		colorBkgHover,
 	} = attributes;
 	const [ queryLoopUrl ] = useEntityProp( 'postType', postType, 'link', postId );
 	const { hasInnerBlocks } = useSelect(
@@ -87,6 +89,9 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		},
 		[ rel, setAttributes ]
 	);
+	const colors = wp.data.select( "core/block-editor" ).getSettings().colors.filter(
+		word => word['origin'] !== 'core'
+		);
 
 	function URLPicker( {
 		isSelected,
@@ -177,6 +182,10 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 			<div
 				{ ...blockProps }
 				className={ classnames( blockProps.className ) }
+				style={
+                    {
+                        '--color-bkg-hover': attributes.colorBkgHover,
+                    }}
 			>
 				<URLPicker
 					url={ url }
@@ -195,6 +204,14 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 							}
 							checked={ queryLoopLink }
 							onChange={ onQueryLoopLink }
+						/>
+					</PanelBody>
+					<PanelBody title={ __( 'Background Hover' ) } initialOpen={false}>
+						<ColorPalette
+							enableAlpha={true}
+							colors={ colors }
+							value={ colorBkgHover }
+							onChange={ ( newColor ) => setAttributes( {colorBkgHover: newColor} ) }
 						/>
 					</PanelBody>
 				</InspectorControls>
