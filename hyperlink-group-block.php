@@ -16,24 +16,13 @@
 namespace hyperlinkGroup;
 
 function render_block_core_post_title( $attributes, $content, $block ) {
-	if ( ! get_the_ID() ) {
-		return '';
-	}
-
-	$post_ID = get_the_ID();
-	$title   = get_the_title();
-
-	if ( ! $title ) {
-		return '';
-	}
-
 	$align_class_name  = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
 	$linkTarget        = ! empty( $attributes['linkTarget'] ) ? 'target="' . esc_attr( $attributes['linkTarget'] ) . '"' : '';
 	$rel               = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
 
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
 
-	$post_url = $attributes['queryLoopLink'] ? get_the_permalink( $post_ID ) : $attributes['url'];
+	$post_url = $attributes['queryLoopLink'] ? get_the_permalink( get_the_ID() ) : $attributes['url'];
 	
 	$inner_blocks_html = '';
 	foreach ( $block->inner_blocks as $inner_block ) {
