@@ -4,7 +4,7 @@ Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
 Tested up to:      6.2
-Stable tag:        1.1.1
+Stable tag:        1.1.2
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -64,6 +64,9 @@ No, that is illegal and causes errors in the renderd HTML.
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
+
+= 1.1.2 - April 10th 2023 =
+* Bugfix Delete test code
 
 = 1.1.1 - April 06th 2023 =
 * Option Background Color onhover
