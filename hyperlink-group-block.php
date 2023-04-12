@@ -3,7 +3,7 @@
  * Plugin Name:     Hyperlink Group Block
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
- * Version:         1.1.2
+ * Version:         1.1.3
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later
@@ -15,7 +15,7 @@
 
 namespace hyperlinkGroup;
 
-function render_block_core_post_title( $attributes, $content, $block ) {
+function render_block_core( $attributes, $content, $block ) {
 	$align_class_name  = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
 	$linkTarget        = ! empty( $attributes['linkTarget'] ) ? 'target="' . esc_attr( $attributes['linkTarget'] ) . '"' : '';
 	$rel               = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
@@ -49,7 +49,7 @@ function render_block_core_post_title( $attributes, $content, $block ) {
 function create_hyperlink_group_block_init() {
 	register_block_type_from_metadata( __DIR__ ,
 	array(
-	   'render_callback' => __NAMESPACE__ . '\render_block_core_post_title',
+	   'render_callback' => __NAMESPACE__ . '\render_block_core',
    )
 );
 }
@@ -92,9 +92,21 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 		};
 		$stripAnchors( $block['innerBlocks'] );
 
-        $content = '<div style="--color-text:' . $color_text . ';--color-bkg:' . $color_bkg . ';--color-bkg-hover:' . $color_bkg_hover . ';">';
-        $content .= $block_content;
-        $content .= '</div>';
+		if( str_contains( $block_content, 'style="' ) ) {
+			$block_content = str_replace(
+				'style="',
+				'style="--color-text:' . $color_text . ';--color-bkg:' . $color_bkg . ';--color-bkg-hover:' . $color_bkg_hover . ';',
+				$block_content
+			);
+		} else {
+			$block_content = str_replace(
+				'<a',
+				'<a style="--color-text:' . $color_text . ';--color-bkg:' . $color_bkg . ';--color-bkg-hover:' . $color_bkg_hover . ';" ',
+				$block_content
+			);
+		}
+
+		$content = $block_content;
         return $content;
 	}
 	return $block_content;
