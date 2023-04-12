@@ -14,11 +14,11 @@
 .wp-block-tiptip-hyperlink-group-block {
 	cursor: pointer;
 	display: block;
-	color: $color-text !important;
-	background-color: $color-bkg !important;
+	color: $color-text;
+	background-color: $color-bkg;
 
 	&:hover {
-			background-color: $color-bkg-hover !important;
+			background-color: $color-bkg-hover;
 	}
 }
 
