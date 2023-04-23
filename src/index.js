@@ -1,14 +1,12 @@
-import classnames from 'classnames';
 import { registerBlockType } from '@wordpress/blocks';
 import { __, _x } from '@wordpress/i18n';
 import { createBlock } from '@wordpress/blocks';
 import { link as icon } from '@wordpress/icons';
-import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 import './style.scss';
 
 import Edit from './edit';
-import save from './save';
+import deprecated from './deprecated';
 
 import metadata from './../block.json';
 const { name } = metadata;
@@ -28,37 +26,6 @@ registerBlockType( name, {
 		__('hyperlink'),
 		__('link'),
         __('tiptoppress'),
-	],
-	deprecated: [
-		{
-			...metadata,
-			save( { attributes, className } ) {
-				const {
-					linkTarget,
-					rel,
-					title,
-					url,
-				} = attributes;
-				const buttonClasses = classnames(
-					'wp-block-hyperlink-group',
-				);
-				const wrapperClasses = classnames( className );
-
-				return (
-					<div { ...useBlockProps.save( { className: wrapperClasses } ) }>
-						<a
-							className={ buttonClasses }
-							href={ url }
-							title={ title }
-							target={ linkTarget }
-							rel={ rel }
-						>
-							<InnerBlocks.Content />
-						</a>
-					</div>
-				);
-			},
-		},
 	],
 	example: {
 		attributes: {
@@ -159,5 +126,5 @@ registerBlockType( name, {
 		]
 	},
 	edit: Edit,
-	save,
+	deprecated,
 } );

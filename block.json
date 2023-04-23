@@ -24,8 +24,7 @@
 			"type": "string"
 		},
 		"url": {
-			"type": "string",
-			"default": ""
+			"type": "string"
 		},
 		"title": {
 			"type": "string"

@@ -3,7 +3,7 @@
  * Plugin Name:     Hyperlink Group Block
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
- * Version:         1.1.5
+ * Version:         1.16
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later
@@ -16,15 +16,16 @@
 namespace hyperlinkGroup;
 
 function render_block_core( $attributes, $content, $block ) {
-	$align_class_name  = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
-	$linkTarget        = ! empty( $attributes['linkTarget'] ) ? 'target="' . esc_attr( $attributes['linkTarget'] ) . '"' : '';
-	$rel               = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
+	$align_class_name   = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
+	$linkTarget         = ! empty( $attributes['linkTarget'] ) ? 'target="' . esc_attr( $attributes['linkTarget'] ) . '"' : '';
+	$rel                = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
 
+	$url                = isset( $attributes['url'] ) && $attributes['url'] ? $attributes['url'] : "";
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
 
-	$post_url = $attributes['queryLoopLink'] ? get_the_permalink( get_the_ID() ) : $attributes['url'];
+	$post_url           = $attributes['queryLoopLink'] ? get_the_permalink( get_the_ID() ) : $url;
 	
-	$inner_blocks_html = '';
+	$inner_blocks_html  = '';
 	foreach ( $block->inner_blocks as $inner_block ) {
 		$inner_block_content = $inner_block->render();
 		$inner_blocks_html .= $inner_block_content;
