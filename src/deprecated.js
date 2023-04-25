@@ -37,6 +37,38 @@ const v1 = {
     },
 };
 
+const v2 = {
+    ...metadata,
+    save( { attributes } ) {
+        const { 
+            linkTarget,
+            rel,
+            title,
+            url,
+            className,
+        } = attributes;
+    
+        const buttonClasses = classnames(
+            'wp-block-hyperlink-group',
+        );
+        const wrapperClasses = classnames( className );
+    
+        return (
+            <a 
+                className={ buttonClasses }
+                href={ url }
+                title={ title }
+                target={ linkTarget }
+                rel={ rel }
+            >
+                <div { ...useBlockProps.save( { className: wrapperClasses } ) }>
+                        <InnerBlocks.Content />
+                </div>
+            </a>
+        );
+    },
+};
+
 
 /**
  * New deprecations need to be placed first
@@ -46,4 +78,4 @@ const v1 = {
  *
  * See block-deprecation.md
  */
-export default [ v1 ];
+export default [ v2, v1 ];
