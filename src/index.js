@@ -6,7 +6,6 @@ import { link as icon } from '@wordpress/icons';
 import './style.scss';
 
 import Edit from './edit';
-import save from './save';
 import deprecated from './deprecated';
 
 import metadata from './../block.json';
@@ -127,6 +126,5 @@ registerBlockType( name, {
 		]
 	},
 	edit: Edit,
-	save,
 	deprecated,
 } );

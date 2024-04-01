@@ -3,7 +3,7 @@
  * Plugin Name:     Hyperlink Group Block
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
- * Version:         1.17.1
+ * Version:         1.17.2
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later
@@ -19,6 +19,7 @@ function render_block_core( $attributes, $content, $block ) {
 	$align_class_name   = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
 	$linkTarget         = ! empty( $attributes['linkTarget'] ) ? 'target="' . esc_attr( $attributes['linkTarget'] ) . '"' : '';
 	$rel                = ! empty( $attributes['rel'] ) ? 'rel="' . esc_attr( $attributes['rel'] ) . '"' : '';
+	$aria_Label         = ! empty( $attributes['ariaLabel'] ) ? 'aria-label="' . esc_attr( $attributes['ariaLabel'] ) . '"' : '';
 
 	$url                = isset( $attributes['url'] ) && $attributes['url'] ? $attributes['url'] : "";
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
@@ -31,11 +32,12 @@ function render_block_core( $attributes, $content, $block ) {
 		$inner_blocks_html .= $inner_block_content;
 	}
 	return sprintf(
-		'<a href="%1$s" %2$s %3$s %4$s>%5$s</a>',
+		'<a href="%1$s" %2$s %3$s %4$s %5$s>%6$s</a>',
 		$post_url,
+		$rel,
+		$aria_Label,
 		$wrapper_attributes,
 		$linkTarget,
-		$rel,
 		$inner_blocks_html
 	);
 }

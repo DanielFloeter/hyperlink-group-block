@@ -35,6 +35,7 @@ const NEW_TAB_REL = 'noreferrer noopener';
 export default function Edit({ attributes, setAttributes, isSelected, clientId, context: { postType, postId, queryId } }) {
 	const {
 		linkTarget,
+		ariaLabel,
 		rel,
 		url,
 		queryLoopLink,
@@ -64,6 +65,12 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 	const onQueryLoopLink = useCallback(
 		( value ) => {
 			setAttributes( { queryLoopLink: value } );
+		},
+		[ setAttributes ]
+	);
+	const onSetAriaLabel = useCallback(
+		( value ) => {
+			setAttributes( { ariaLabel: value } );
 		},
 		[ setAttributes ]
 	);
@@ -208,6 +215,18 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 						/>
 					</PanelBody>
 				</InspectorControls>
+				<InspectorAdvancedControls>
+					<TextControl
+						label={ __( 'Link rel' ) }
+						value={ rel || '' }
+						onChange={ onSetLinkRel }
+					/>
+					<TextControl
+						label={ __( 'Aria-Label' ) }
+						value={ ariaLabel || '' }
+						onChange={ onSetAriaLabel }
+					/>
+				</InspectorAdvancedControls>
 				<InspectorControls group="styles">
 					<PanelColorSettings
 							title={ __( 'Color' ) }
@@ -237,13 +256,6 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 						>
 					</PanelColorSettings>
 				</InspectorControls>
-				<InspectorAdvancedControls>
-					<TextControl
-						label={ __( 'Link rel' ) }
-						value={ rel || '' }
-						onChange={ onSetLinkRel }
-					/>
-				</InspectorAdvancedControls>
 				<a { ...innerBlocksProps } />
 			</div>
 		</>

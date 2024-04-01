@@ -32,6 +32,9 @@
         "linkTarget": {
 			"type": "string"
 		},
+		"ariaLabel": {
+			"type": "string"
+		},
 		"rel": {
 			"type": "string"
 		},
