@@ -4,7 +4,7 @@ Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
 Tested up to:      6.4
-Stable tag:        1.17.2
+Stable tag:        1.17.3
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -64,6 +64,9 @@ No, that is illegal and causes errors in the renderd HTML.
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
+
+= 1.17.3 - April 2st 2024 =
+* Bugfix Delete deprecated
 
 = 1.17.2 - April 1st 2024 =
 * Aria-label
