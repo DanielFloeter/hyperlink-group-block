@@ -3,7 +3,7 @@
  * Plugin Name:     Hyperlink Group Block
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
- * Version:         1.17.3
+ * Version:         1.17.4
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later
@@ -25,6 +25,7 @@ function render_block_core( $attributes, $content, $block ) {
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
 
 	$post_url           = $attributes['queryLoopLink'] ? get_the_permalink( get_the_ID() ) : $url;
+	$post_url           = $post_url !== '' ? 'href="' . $post_url . '"' : '';
 	
 	$inner_blocks_html  = '';
 	foreach ( $block->inner_blocks as $inner_block ) {
@@ -32,7 +33,7 @@ function render_block_core( $attributes, $content, $block ) {
 		$inner_blocks_html .= $inner_block_content;
 	}
 	return sprintf(
-		'<a href="%1$s" %2$s %3$s %4$s %5$s>%6$s</a>',
+		'<a %1$s %2$s %3$s %4$s %5$s>%6$s</a>',
 		$post_url,
 		$rel,
 		$aria_Label,
@@ -64,9 +65,11 @@ add_action( 'init', __NAMESPACE__ . '\create_hyperlink_group_block_init' );
  */
 function add_button_size_class( $block_content = '', $block = [] ) {
 	if ( isset( $block['blockName'] ) && 'tiptip/hyperlink-group-block' === $block['blockName'] ) {
-		$color_text      = (isset( $block['attrs']['colorText'] ) && $block['attrs']['colorText'] !== '') ? $block['attrs']['colorText'] : '';
+		$color_text      = (isset( $block['attrs']['colorText'] ) && $block['attrs']['colorText'] !== '') ? '--color-text:' . $block['attrs']['colorText'] . ';' : '';
 		$color_bkg       = (isset( $block['attrs']['colorBkg'] ) && $block['attrs']['colorBkg'] !== '') ? $block['attrs']['colorBkg'] : '';
 		$color_bkg_hover = (isset( $block['attrs']['colorBkgHover'] ) && $block['attrs']['colorBkgHover'] !== '') ? $block['attrs']['colorBkgHover'] : $color_bkg;
+		$color_bkg       = $color_bkg !== '' ? '--color-bkg:' . $color_bkg . ';' : '';
+		$color_bkg_hover = $color_bkg_hover !== '' ? '--color-bkg-hover:' . $color_bkg_hover . ';' : '';
 
 		$stripAnchors = function( $block ) use ( &$stripAnchors, &$html, &$block_content ) {
 			foreach( $block as $b){
@@ -100,15 +103,17 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 		if( str_contains( $matches[0], 'style="' ) ) {
 			$block_content = str_replace(
 				'style="',
-				'style="--color-text:' . $color_text . ';--color-bkg:' . $color_bkg . ';--color-bkg-hover:' . $color_bkg_hover . ';',
+				'style="' . $color_text . $color_bkg . $color_bkg_hover . '"',
 				$block_content
 			);
 		} else {
-			$block_content = str_replace(
-				'<a',
-				'<a style="--color-text:' . $color_text . ';--color-bkg:' . $color_bkg . ';--color-bkg-hover:' . $color_bkg_hover . ';" ',
-				$block_content
-			);
+			if( $color_text . $color_bkg . $color_bkg_hover ) :
+				$block_content = str_replace(
+					'<a',
+					'<a style="' . $color_text . $color_bkg . $color_bkg_hover . '"',
+					$block_content
+				);
+			endif;
 		}
 
 		$content = $block_content;
