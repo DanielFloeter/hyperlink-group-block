@@ -85,6 +85,11 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 						'</span>',
 						$b['innerHTML']
 					);
+					$block_content = preg_replace(
+						'/\s[a-zA-Z0-9-]*--[a-zA-Z0-9]*/',
+						'',
+						$block_content
+					);
 					$block_content = str_replace(
 						$replace,
 						$b['innerHTML'],
