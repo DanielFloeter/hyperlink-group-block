@@ -4,7 +4,7 @@ Donate link:       https://wordpress.org/support/plugin/hyperlink-group-block/re
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
 Tested up to:      6.6
-Stable tag:        1.17.5
+Stable tag:        1.17.6
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -64,6 +64,10 @@ No, that is illegal and causes errors in the renderd HTML.
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
+
+= 1.17.6 - Oct 24th 2024 =
+* Bugfix Nested anchors
+* Escape output
 
 = 1.17.5 - April 5th 2024 =
 * Bugfix Extra quotes

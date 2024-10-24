@@ -3,7 +3,7 @@
  * Plugin Name:     Hyperlink Group Block
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
- * Version:         1.17.5
+ * Version:         1.17.6
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later
@@ -24,7 +24,7 @@ function render_block_core( $attributes, $content, $block ) {
 	$url                = isset( $attributes['url'] ) && $attributes['url'] ? $attributes['url'] : "";
 	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
 
-	$post_url           = $attributes['queryLoopLink'] ? get_the_permalink( get_the_ID() ) : $url;
+	$post_url           = $attributes['queryLoopLink'] ? get_the_permalink( get_the_ID() ) : esc_url($url);
 	$post_url           = $post_url !== '' ? 'href="' . $post_url . '"' : '';
 	
 	$inner_blocks_html  = '';
