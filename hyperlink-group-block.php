@@ -73,7 +73,7 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 
 		$stripAnchors = function( $block ) use ( &$stripAnchors, &$html, &$block_content ) {
 			foreach( $block as $b){
-				if( str_contains( $b['innerHTML'], '<a' ) ) {
+				if( str_contains( $b['innerHTML'], '<a' ) ) { 
 					$replace = $b['innerHTML'];
 					$b['innerHTML'] = str_replace(
 						'<a',
@@ -91,12 +91,12 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 						$block_content
 					);
 					$block_content = str_replace(
-						$replace,
+						trim($replace),
 						$b['innerHTML'],
 						$block_content
 					);
 				}
-				if( ! empty( $b['innerBlocks'] ) ) {
+				if( ! empty( $b['innerBlocks'] ) ) { 
 					$stripAnchors( $b['innerBlocks'] );
 				}
 			}
