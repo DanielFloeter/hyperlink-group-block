@@ -24,17 +24,17 @@ It's also possible to group existing Blocks.
 Select the Blocks which should be grouped with a Hyperlink. The Block Toolbar will appear. Click on the Block icon and select the Hyperlink Block to transform the selected Blocks to an Hyperlink Block with some InnerBlocks.
 
 = Advanced =
-In the Advanced Tab link [rel attributes](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel) can be set.
+On the Advanced Tab set the link's [rel](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel), [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label) attributes.
 
 = Features =
 * Wrap Blocks with a hyperlink
 * Use link from Query Loop Block
 * Transform Blocks into a group wrapped with an HTML anchor tag (&lt;a&gt;)
 * Set the link href attribute
-* Set rel attributes
+* Set rel, title and aria-label attributes
 * Option open in a new window
 * Set hover background color
-* Delete inner anchor elements
+* Inner anchor elements are automatically deleted
 
 = Contribute =
 While using this plugin if you find any bug or any conflict, please submit an issue at [Github](https://github.com/DanielFloeter/hyperlink-group-block) (If possible with a pull request).

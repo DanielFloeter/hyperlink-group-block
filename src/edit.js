@@ -37,6 +37,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		linkTarget,
 		ariaLabel,
 		rel,
+		title,
 		url,
 		queryLoopLink,
 		colorText,
@@ -77,6 +78,12 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 	const onSetLinkRel = useCallback(
 		( value ) => {
 			setAttributes( { rel: value } );
+		},
+		[ setAttributes ]
+	);
+	const onSetLinkTitle = useCallback(
+		( value ) => {
+			setAttributes( { title: value } );
 		},
 		[ setAttributes ]
 	);
@@ -225,6 +232,11 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 						label={ __( 'Aria-Label' ) }
 						value={ ariaLabel || '' }
 						onChange={ onSetAriaLabel }
+					/>
+					<TextControl
+						label={ __( 'Link title' ) }
+						value={ title || '' }
+						onChange={ onSetLinkTitle }
 					/>
 				</InspectorAdvancedControls>
 				<InspectorControls group="styles">
