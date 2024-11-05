@@ -3,8 +3,8 @@ Contributors:      kometschuh
 Donate link:       https://wordpress.org/support/plugin/hyperlink-group-block/reviews/?filter=5
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
-Tested up to:      6.6
-Stable tag:        1.17.6
+Tested up to:      6.7
+Stable tag:        2.0.0
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -51,6 +51,19 @@ e.g.
 
 == Frequently Asked Questions ==
 
+= WPML support (translate the anchor) =
+
+There are two kinds for WPML translation.
+
+Translate with "WordPress Editor", not with "WPML Translation Editor":
+WPML > Settings > Translation Editor > Classic Translation Editor
+or
+Your site in admin / gutenberg mode > right sidebar / Page > language > Translations > WordPress Editor
+
+Other option but there is a bug, it doesn't work for us?
+[wpml.org/faq](https://wpml.org/faq/) / FAQ > How-To > "How can I translate links and HTML attributes in the Advanced Translation Editor?"
+Search content: "http" [YouTube](https://wpml.org/announcements/2020/02/translating-links-with-advanced-translation-editor/)
+
 = Can I use links within the Hyperlink Group Block? =
 
 No, that is illegal and causes errors in the renderd HTML.
@@ -64,6 +77,9 @@ No, that is illegal and causes errors in the renderd HTML.
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
+
+= 2.0.0 - Nov 05th 2024 =
+* Title attribute
 
 = 1.17.6 - Oct 24th 2024 =
 * Bugfix Nested anchors

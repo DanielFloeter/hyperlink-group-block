@@ -3,7 +3,7 @@
  * Plugin Name:     Hyperlink Group Block
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
- * Version:         1.17.6
+ * Version:         2.0.0
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later
