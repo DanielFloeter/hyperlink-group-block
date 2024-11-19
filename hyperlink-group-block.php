@@ -73,7 +73,7 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 		$color_bkg       = $color_bkg !== '' ? '--color-bkg:' . $color_bkg . ';' : '';
 		$color_bkg_hover = $color_bkg_hover !== '' ? '--color-bkg-hover:' . $color_bkg_hover . ';' : '';
 
-		$stripAnchors = function( $block ) use ( &$stripAnchors, &$html, &$block_content ) {
+		$stripAnchors = function( $block ) use ( &$stripAnchors, &$block_content ) {
 			foreach( $block as $b){
 				if( str_contains( $b['innerHTML'], '<a' ) ) { 
 					$replace = $b['innerHTML'];
