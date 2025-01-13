@@ -73,7 +73,7 @@ No, that is illegal and causes errors in the renderd HTML.
 1. Hyperlink Group Block to group Blocks with an hyperlink.
 2. Wrap Blocks with a link.
 3. Rendered HTML.
-4. Advanced Settings for rel attributes.
+4. Advanced Settings for rel, title and aria-label attributes
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
