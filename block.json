@@ -10,6 +10,9 @@
 		"spacing": {
 			"margin": true,
 			"padding": true
+		},
+		"interactivity": {
+			"clientNavigation": true
 		}
     },
 	"usesContext": [ "postId", "postType", "queryId" ],
