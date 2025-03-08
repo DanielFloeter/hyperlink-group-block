@@ -110,14 +110,14 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 		if( str_contains( $matches[0], 'style="' ) ) {
 			$block_content = str_replace(
 				'style="',
-				'style="' . $color_text . $color_bkg . $color_bkg_hover,
+				'style="' . esc_attr($color_text . $color_bkg . $color_bkg_hover),
 				$block_content
 			);
 		} else {
 			if( $color_text . $color_bkg . $color_bkg_hover ) :
 				$block_content = str_replace(
 					'<a',
-					'<a style="' . $color_text . $color_bkg . $color_bkg_hover . '"',
+					'<a style="' . esc_attr($color_text . $color_bkg . $color_bkg_hover) . '"',
 					$block_content
 				);
 			endif;
