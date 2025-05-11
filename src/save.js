@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
 
@@ -12,10 +12,10 @@ export default function save({ attributes }) {
 		className,
 	} = attributes;
 
-	const buttonClasses = classnames(
+	const buttonClasses = clsx(
 		'wp-block-hyperlink-group',
 	);
-	const wrapperClasses = classnames( className );
+	const wrapperClasses = clsx( className );
 
 	return (
 		<a 

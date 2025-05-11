@@ -1,4 +1,4 @@
-import classnames from 'classnames';
+import clsx from 'clsx';
 import { __ } from '@wordpress/i18n';
 import { useSelect } from '@wordpress/data';
 import { useCallback, useState, useRef } from '@wordpress/element';
@@ -194,7 +194,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		<>
 			<div
 				{ ...blockProps }
-				className={ classnames( blockProps.className ) }
+				className={ clsx( blockProps.className ) }
 				style={
                     {
 						'--color-text': colorText?colorText:'',

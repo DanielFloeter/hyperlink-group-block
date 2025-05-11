@@ -78,6 +78,9 @@ No, that is illegal and causes errors in the renderd HTML.
 
 == Changelog ==
 
+= 2.0.3 - xxx xx xxxx =
+* Replace classnames with clsx
+
 = 2.0.2 - May 11th 2025 =
 * Bugfix Escaping data
 

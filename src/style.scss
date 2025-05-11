@@ -11,7 +11,7 @@
  $color-bkg:       var(--color-bkg, none);
  $color-bkg-hover: var(--color-bkg-hover, none);
 
-.wp-block-tiptip-hyperlink-group-block {
+.wp-block-tiptip-hyperlink-group-block, .wp-block-tiptip-hyperlink-group-block a p {
 	cursor: pointer;
 	display: block;
 	color: $color-text;

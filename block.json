@@ -57,5 +57,6 @@
     },
 	"textdomain": "hyperlink-group-block",
 	"editorScript": "file:./build/index.js",
+	"editorStyle": "file:./build/style-index.css",
 	"style": "file:./build/style-index.css"
 }

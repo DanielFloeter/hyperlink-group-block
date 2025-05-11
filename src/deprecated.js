@@ -3,7 +3,7 @@
 import { __ } from '@wordpress/i18n';
 import { InnerBlocks, useBlockProps } from '@wordpress/block-editor';
 
-import classnames from 'classnames';
+import clsx from 'clsx';
 
 import metadata from './../block.json';
 
@@ -16,10 +16,10 @@ const v1 = {
             title,
             url,
         } = attributes;
-        const buttonClasses = classnames(
+        const buttonClasses = clsx(
             'wp-block-hyperlink-group',
         );
-        const wrapperClasses = classnames( className );
+        const wrapperClasses = clsx( className );
 
         return (
             <div { ...useBlockProps.save( { className: wrapperClasses } ) }>
@@ -48,10 +48,10 @@ const v2 = {
             className,
         } = attributes;
     
-        const buttonClasses = classnames(
+        const buttonClasses = clsx(
             'wp-block-hyperlink-group',
         );
-        const wrapperClasses = classnames( className );
+        const wrapperClasses = clsx( className );
     
         return (
             <a 
