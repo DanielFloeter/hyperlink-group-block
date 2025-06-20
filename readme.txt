@@ -4,7 +4,7 @@ Donate link:       https://wordpress.org/support/plugin/hyperlink-group-block/re
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 5.6
 Tested up to:      6.8
-Stable tag:        2.0.2
+Stable tag:        2.0.3
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -78,7 +78,7 @@ No, that is illegal and causes errors in the renderd HTML.
 
 == Changelog ==
 
-= 2.0.3 - xxx xx xxxx =
+= 2.0.3 - June 20th 2025 =
 * Replace classnames with clsx
 
 = 2.0.2 - May 11th 2025 =
