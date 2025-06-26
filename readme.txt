@@ -2,7 +2,7 @@
 Contributors:      kometschuh
 Donate link:       https://wordpress.org/support/plugin/hyperlink-group-block/reviews/?filter=5
 Tags:              block, hyperlink, link, gutenberg, anchor
-Requires at least: 5.6
+Requires at least: 6.6
 Tested up to:      6.8
 Stable tag:        2.0.3
 Requires PHP:      7.0.0
