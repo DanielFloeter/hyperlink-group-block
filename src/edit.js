@@ -75,6 +75,12 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		},
 		[ setAttributes ]
 	);
+	const onSetTabName = useCallback(
+		( value ) => {
+			setAttributes( { linkTarget: value } );
+		},
+		[ setAttributes ]
+	);
 	const onSetLinkRel = useCallback(
 		( value ) => {
 			setAttributes( { rel: value } );
@@ -206,7 +212,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 					url={ url }
 					setAttributes={ setAttributes }
 					isSelected={ isSelected }
-					opensInNewTab={ linkTarget === '_blank' }
+					opensInNewTab={ linkTarget }
 					onToggleOpenInNewTab={ onToggleOpenInNewTab }
 					anchorRef={ ref }
 				/>
@@ -223,6 +229,12 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 					</PanelBody>
 				</InspectorControls>
 				<InspectorAdvancedControls>
+					<TextControl
+						help={ __( 'Use same tabname as targe to open in same tabs' ) }
+						label={ __( 'Tab name' ) }
+						value={ linkTarget || '' }
+						onChange={ onSetTabName }
+					/>
 					<TextControl
 						label={ __( 'Link rel' ) }
 						value={ rel || '' }
