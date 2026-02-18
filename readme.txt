@@ -24,7 +24,7 @@ It's also possible to group existing Blocks.
 Select the Blocks which should be grouped with a Hyperlink. The Block Toolbar will appear. Click on the Block icon and select the Hyperlink Block to transform the selected Blocks to an Hyperlink Block with some InnerBlocks.
 
 = Advanced =
-On the Advanced Tab set the link's [rel](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel), [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label) attributes.
+On the Advanced Tab set the link's [target](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/target), [rel](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel), [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label) attributes.
 
 = Features =
 * Wrap Blocks with a hyperlink
@@ -73,7 +73,7 @@ No, that is illegal and causes errors in the renderd HTML.
 1. Hyperlink Group Block to group Blocks with an hyperlink.
 2. Wrap Blocks with a link.
 3. Rendered HTML.
-4. Advanced Settings for rel, title and aria-label attributes.
+4. Advanced Settings for link target, rel, title and aria-label attributes.
 5. Transform Blocks into a group wrapped with an anchor tag
 
 == Changelog ==
