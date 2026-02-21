@@ -77,7 +77,12 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 	);
 	const onSetTabName = useCallback(
 		( value ) => {
-			setAttributes( { linkTarget: value } );
+			const updatedRel = value !== '_blank' ? undefined : rel;
+
+			setAttributes( { 
+				linkTarget: value,
+				rel: updatedRel
+			} );
 		},
 		[ setAttributes ]
 	);
