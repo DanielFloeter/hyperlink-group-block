@@ -230,7 +230,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 				</InspectorControls>
 				<InspectorAdvancedControls>
 					<TextControl
-						help={ __( 'Use same tabname as targe to open in same tabs' ) }
+						help={ __( 'Use same tabname as target to open in same tabs' ) }
 						label={ __( 'Tab name' ) }
 						value={ linkTarget || '' }
 						onChange={ onSetTabName }
