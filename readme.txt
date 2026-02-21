@@ -1,6 +1,6 @@
 === Hyperlink Group Block ===
 Contributors:      kometschuh
-Donate link:       https://wordpress.org/support/plugin/hyperlink-group-block/reviews/?filter=5
+Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 6.6
 Tested up to:      6.9
