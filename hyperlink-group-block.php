@@ -15,6 +15,11 @@
 
 namespace hyperlinkGroup;
 
+// Don't call the file directly
+if (!defined('ABSPATH')) {
+    exit;
+}
+
 function render_block_core( $attributes, $content, $block ) {
 	$align_class_name   = empty( $attributes['textAlign'] ) ? '' : "has-text-align-{$attributes['textAlign']}";
 	$linkTarget         = ! empty( $attributes['linkTarget'] ) ? 'target="' . esc_attr( $attributes['linkTarget'] ) . '"' : '';
