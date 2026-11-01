@@ -78,6 +78,11 @@ No, that is illegal and causes errors in the renderd HTML.
 
 == Changelog ==
 
+= 2.1.0 - Nov 1st 2026 =
+* Hover text decoration
+* Native block supports
+* Security protection
+
 = 2.0.5 - Feb 18th 2026 =
 * Set tab name to open link in the same tab
 

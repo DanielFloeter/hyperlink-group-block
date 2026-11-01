@@ -36,7 +36,17 @@ const legacyAttributes = {
 // <= 2.0.5: <a><div wrapper>…</div></a>, custom color attributes.
 const v2 = {
 	apiVersion: 3,
-	attributes: legacyAttributes,
+	attributes: {
+		...legacyAttributes,
+		// The id sits on the inner wrapper, not on the first element
+		// (the anchor support's default selector `*` would hit the `<a>`).
+		anchor: {
+			type: 'string',
+			source: 'attribute',
+			attribute: 'id',
+			selector: 'a > div',
+		},
+	},
 	supports: legacySupports,
 	migrate: migrateLegacyColors,
 	save( { attributes } ) {
