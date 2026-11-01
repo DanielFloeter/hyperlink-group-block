@@ -4,7 +4,7 @@ Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              block, hyperlink, link, gutenberg, anchor
 Requires at least: 6.6
 Tested up to:      6.9
-Stable tag:        2.0.5
+Stable tag:        2.1.0
 Requires PHP:      7.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
