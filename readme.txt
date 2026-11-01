@@ -80,7 +80,7 @@ No, that is illegal and causes errors in the renderd HTML.
 
 = 2.1.0 - Nov 1st 2026 =
 * Hover text decoration
-* Native block supports
+* Native block support, like link hover color
 * Security protection
 
 = 2.0.5 - Feb 18th 2026 =
