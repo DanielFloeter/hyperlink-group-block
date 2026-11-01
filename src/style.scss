@@ -1,44 +1,31 @@
 /**
- * The following styles get applied both on the front of your site
- * and in the editor.
+ * Editor and front end.
  *
- * Replace them with your own styles or remove the file completely.
+ * The block wrapper is the `<a>` itself. Native `elements.link` styles only
+ * target descendant links, so link/hover colors are applied to the wrapper
+ * via custom properties (see link-colors.js / hyperlink-group-block.php).
+ * Hover rules need !important to beat the inline `color`/`background`
+ * set by the native color support.
  */
-
- /* editor and front end */
-
- $color-text:      var(--color-text, none);
- $color-bkg:       var(--color-bkg, none);
- $color-bkg-hover: var(--color-bkg-hover, none);
-
-.wp-block-tiptip-hyperlink-group-block, .wp-block-tiptip-hyperlink-group-block a p {
-	cursor: pointer;
+// Zero specificity so layout support (flex/grid) can override `display`.
+:where(.wp-block-tiptip-hyperlink-group-block) {
 	display: block;
-	color: $color-text;
-	background-color: $color-bkg;
-
-	&:hover {
-			background-color: $color-bkg-hover;
-	}
 }
 
 .wp-block-tiptip-hyperlink-group-block {
+	cursor: pointer;
 
-	// "Float" style variation.
-	&.is-style-grid {
+	&.has-hgb-link-color {
+		color: var(--hgb-link-color);
+	}
 
-		@media only screen and (min-width: 248px) {
+	&.has-hgb-link-hover-color:hover,
+	&.has-hgb-link-hover-color:focus-visible {
+		color: var(--hgb-link-hover-color) !important;
+	}
 
-			// dd {
-			// 	padding-left: 2em;
-			// }
-
-			// display: grid;
-			// grid-template-columns: auto 1fr;
-			// grid-template-columns: auto auto;
-			// align-items: center;
-		}
+	&.has-hgb-hover-background:hover,
+	&.has-hgb-hover-background:focus-visible {
+		background: var(--hgb-hover-background) !important;
 	}
 }
-
-

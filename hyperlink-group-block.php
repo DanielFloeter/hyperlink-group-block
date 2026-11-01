@@ -72,12 +72,6 @@ add_action( 'init', __NAMESPACE__ . '\create_hyperlink_group_block_init' );
  */
 function add_button_size_class( $block_content = '', $block = [] ) {
 	if ( isset( $block['blockName'] ) && 'tiptip/hyperlink-group-block' === $block['blockName'] ) {
-		$color_text      = (isset( $block['attrs']['colorText'] ) && $block['attrs']['colorText'] !== '') ? '--color-text:' . $block['attrs']['colorText'] . ';' : '';
-		$color_bkg       = (isset( $block['attrs']['colorBkg'] ) && $block['attrs']['colorBkg'] !== '') ? $block['attrs']['colorBkg'] : '';
-		$color_bkg_hover = (isset( $block['attrs']['colorBkgHover'] ) && $block['attrs']['colorBkgHover'] !== '') ? $block['attrs']['colorBkgHover'] : $color_bkg;
-		$color_bkg       = $color_bkg !== '' ? '--color-bkg:' . $color_bkg . ';' : '';
-		$color_bkg_hover = $color_bkg_hover !== '' ? '--color-bkg-hover:' . $color_bkg_hover . ';' : '';
-
 		$stripAnchors = function( $block ) use ( &$stripAnchors, &$block_content ) {
 			foreach( $block as $b){
 				if( str_contains( $b['innerHTML'], '<a' ) ) { 
@@ -110,27 +104,88 @@ function add_button_size_class( $block_content = '', $block = [] ) {
 		};
 		$stripAnchors( $block['innerBlocks'] );
 
-		$pattern = "/<[^>]+>/";
-		preg_match($pattern, $block_content, $matches);
-		if( str_contains( $matches[0], 'style="' ) ) {
-			$block_content = str_replace(
-				'style="',
-				'style="' . esc_attr($color_text . $color_bkg . $color_bkg_hover),
-				$block_content
-			);
-		} else {
-			if( $color_text . $color_bkg . $color_bkg_hover ) :
-				$block_content = str_replace(
-					'<a',
-					'<a style="' . esc_attr($color_text . $color_bkg . $color_bkg_hover) . '"',
-					$block_content
-				);
-			endif;
-		}
-
-		$content = $block_content;
-        return $content;
+		return apply_link_colors( $block_content, isset( $block['attrs'] ) ? $block['attrs'] : [] );
 	}
 	return $block_content;
 }
+
+/**
+ * Converts a style value (`var:preset|color|slug` or a color) to CSS.
+ * Returns '' for values that are not safe inside a style attribute.
+ */
+function css_color_value( $value ) {
+	if ( ! is_string( $value ) || '' === $value ) {
+		return '';
+	}
+	if ( 0 === strpos( $value, 'var:' ) ) {
+		$value = 'var(--wp--' . str_replace( '|', '--', substr( $value, 4 ) ) . ')';
+	}
+	return preg_match( '/^[a-zA-Z0-9#(),.%\s-]+$/', $value ) ? $value : '';
+}
+
+/**
+ * Adds link/hover colors to the block wrapper (`<a>`).
+ *
+ * Native `elements.link` styles only target descendant links, so they are
+ * exposed as custom properties + classes on the wrapper (see style.scss).
+ * Also renders the legacy attributes `colorText`, `colorBkg`, `colorBkgHover`
+ * (<= 2.0.5) for content not yet migrated in the editor.
+ * Keep in sync with src/link-colors.js.
+ */
+function apply_link_colors( $block_content, $attrs ) {
+	$style   = isset( $attrs['style'] ) && is_array( $attrs['style'] ) ? $attrs['style'] : [];
+	$link    = isset( $style['elements']['link'] ) && is_array( $style['elements']['link'] ) ? $style['elements']['link'] : [];
+	$hover   = isset( $link[':hover'] ) && is_array( $link[':hover'] ) ? $link[':hover'] : [];
+
+	$link_color       = css_color_value( isset( $link['color']['text'] ) ? $link['color']['text'] : '' );
+	$hover_color      = css_color_value( isset( $hover['color']['text'] ) ? $hover['color']['text'] : '' );
+	$hover_background = css_color_value( isset( $hover['color']['background'] ) ? $hover['color']['background'] : '' );
+
+	$declarations = [];
+	$classes      = [];
+
+	// Legacy attributes, only if no native value is set.
+	$legacy_text = css_color_value( isset( $attrs['colorText'] ) ? $attrs['colorText'] : '' );
+	$legacy_bkg  = css_color_value( isset( $attrs['colorBkg'] ) ? $attrs['colorBkg'] : '' );
+	if ( $legacy_text && empty( $style['color']['text'] ) && empty( $attrs['textColor'] ) ) {
+		$declarations[] = 'color:' . $legacy_text;
+	}
+	if ( $legacy_bkg && empty( $style['color']['background'] ) && empty( $attrs['backgroundColor'] ) ) {
+		$declarations[] = 'background-color:' . $legacy_bkg;
+	}
+	if ( ! $hover_background ) {
+		$hover_background = css_color_value( isset( $attrs['colorBkgHover'] ) ? $attrs['colorBkgHover'] : '' );
+	}
+
+	if ( $link_color ) {
+		$declarations[] = '--hgb-link-color:' . $link_color;
+		$classes[]      = 'has-hgb-link-color';
+	}
+	if ( $hover_color ) {
+		$declarations[] = '--hgb-link-hover-color:' . $hover_color;
+		$classes[]      = 'has-hgb-link-hover-color';
+	}
+	if ( $hover_background ) {
+		$declarations[] = '--hgb-hover-background:' . $hover_background;
+		$classes[]      = 'has-hgb-hover-background';
+	}
+
+	if ( ! $declarations ) {
+		return $block_content;
+	}
+
+	$processor = new \WP_HTML_Tag_Processor( $block_content );
+	if ( ! $processor->next_tag( 'a' ) ) {
+		return $block_content;
+	}
+	foreach ( $classes as $class ) {
+		$processor->add_class( $class );
+	}
+	$existing = trim( (string) $processor->get_attribute( 'style' ) );
+	$existing = '' === $existing ? '' : rtrim( $existing, ';' ) . ';';
+	$processor->set_attribute( 'style', $existing . implode( ';', $declarations ) . ';' );
+
+	return $processor->get_updated_html();
+}
+
 add_filter( 'render_block', __NAMESPACE__ . '\add_button_size_class', 10, 2 );

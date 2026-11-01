@@ -21,11 +21,14 @@ import {
 	store as blockEditorStore,
 	BlockControls,
 	InspectorControls,
-	PanelColorSettings,
+	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
+	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
 import { link, linkOff } from '@wordpress/icons';
 import { useEntityProp } from '@wordpress/core-data';
+
+import { getLinkColorProps, setHoverBackground } from './link-colors';
 
 export const useInnerBlocksProps = __experimentalUseInnerBlocksProps || stableUseInnerBlocksProps; // WP +5.9
 export const LinkControl         = __experimentalLinkControl || stableLinkControl; // WP +5.9
@@ -40,9 +43,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		title,
 		url,
 		queryLoopLink,
-		colorText,
-		colorBkg,
-		colorBkgHover,
+		style,
 	} = attributes;
 	const [ queryLoopUrl ] = useEntityProp( 'postType', postType, 'link', postId );
 	const { hasInnerBlocks } = useSelect(
@@ -57,7 +58,13 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		[ clientId ]
 	);
 	const ref = useRef();
-	const blockProps = useBlockProps( { ref } );
+	const linkColorProps = getLinkColorProps( style );
+	const blockProps = useBlockProps( {
+		ref,
+		className: clsx( linkColorProps.className ),
+		style: linkColorProps.style,
+	} );
+	const colorGradientSettings = useMultipleOriginColorsAndGradients();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		renderAppender: hasInnerBlocks
 			? undefined
@@ -203,16 +210,6 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 
 	return (
 		<>
-			<div
-				{ ...blockProps }
-				className={ clsx( blockProps.className ) }
-				style={
-                    {
-						'--color-text': colorText?colorText:'',
-						'--color-bkg': colorBkg?colorBkg:'',
-                        '--color-bkg-hover': colorBkgHover?colorBkgHover:colorBkg,
-                    }}
-			>
 				<URLPicker
 					url={ url }
 					setAttributes={ setAttributes }
@@ -256,37 +253,31 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 						onChange={ onSetLinkTitle }
 					/>
 				</InspectorAdvancedControls>
-				<InspectorControls group="styles">
-					<PanelColorSettings
-							title={ __( 'Color' ) }
-							colorSettings={ [
-								{
-									value: colorText,
-									onChange: ( colorValue ) => setAttributes( { colorText: colorValue } ),
-									label: __( 'Text' ),
-									enableAlpha: true,
-									clearable: true,
-								},
-								{
-									value: colorBkg,
-									onChange: ( colorValue ) => setAttributes( { colorBkg: colorValue } ),
-									label: __( 'Background' ),
-									enableAlpha: true,
-									clearable: true,
-								},
-								{
-									value: colorBkgHover,
-									onChange: ( colorValue ) => setAttributes( { colorBkgHover: colorValue } ),
-									label: __( 'Background hover' ),
-									enableAlpha: true,
-									clearable: true,
-								},
-							] }
-						>
-					</PanelColorSettings>
+				<InspectorControls group="color">
+					<ColorGradientSettingsDropdown
+						__experimentalIsRenderedInSidebar
+						settings={ [
+							{
+								colorValue: style?.elements?.link?.[ ':hover' ]?.color?.background,
+								label: __( 'Background hover', 'hyperlink-group-block' ),
+								onColorChange: ( value ) =>
+									setAttributes( { style: setHoverBackground( style, value ) } ),
+								isShownByDefault: true,
+								enableAlpha: true,
+								clearable: true,
+								resetAllFilter: ( attrs ) => ( {
+									...attrs,
+									style: setHoverBackground( attrs.style, undefined ),
+								} ),
+							},
+						] }
+						panelId={ clientId }
+						{ ...colorGradientSettings }
+						gradients={ [] }
+						disableCustomGradients
+					/>
 				</InspectorControls>
 				<a { ...innerBlocksProps } />
-			</div>
 		</>
 	);
 }
