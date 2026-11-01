@@ -91,6 +91,19 @@ registerBlockType( name, {
 	transforms: {
 		from: [
 			{
+				// Replace a single group instead of wrapping it: inner blocks
+				// and all shared attributes (supports) move over.
+				type: 'block',
+				blocks: [ 'core/group' ],
+				priority: 5, // must win over the '*' wildcard transform (default 10)
+				transform: ( attributes, innerBlocks ) => {
+					// Group-only attributes the Hyperlink Group doesn't have.
+					const { tagName, templateLock, allowedBlocks, ...rest } =
+						attributes;
+					return createBlock( name, rest, innerBlocks );
+				},
+			},
+			{
 				type: 'block',
 				isMultiBlock: true,
 				blocks: [ '*' ],
@@ -124,7 +137,27 @@ registerBlockType( name, {
 					);
 				},
 			},
-		]
+		],
+		to: [
+			{
+				type: 'block',
+				blocks: [ 'core/group' ],
+				transform: ( attributes, innerBlocks ) => {
+					// Link-only attributes the group doesn't have.
+					const {
+						url,
+						title,
+						linkTarget,
+						ariaLabel,
+						rel,
+						queryLoopLink,
+						...rest
+					} = attributes;
+					return createBlock( 'core/group', rest, innerBlocks );
+				},
+			},
+		],
+		ungroup: ( attributes, innerBlocks ) => innerBlocks,
 	},
 	edit: Edit,
 	save,

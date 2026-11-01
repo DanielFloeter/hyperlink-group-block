@@ -82,6 +82,8 @@ No, that is illegal and causes errors in the renderd HTML.
 * Hover text decoration
 * Native block support, like link hover color
 * Security protection
+* Transform: Group to Hyperlink Group and back (replace instead of wrap), 
+* Ungroup
 
 = 2.0.5 - Feb 18th 2026 =
 * Set tab name to open link in the same tab
