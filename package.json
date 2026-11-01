@@ -11,7 +11,8 @@
 		"lint:css": "wp-scripts lint-style",
 		"lint:js": "wp-scripts lint-js",
 		"start": "wp-scripts start",
-		"packages-update": "wp-scripts packages-update"
+		"packages-update": "wp-scripts packages-update",
+		"test:unit": "wp-scripts test-unit-js --transformIgnorePatterns \"node_modules/(?!(parsel-js|uuid)/)\""
 	},
 	"dependencies": {
 		"@wordpress/block-editor": "^15.0.0",

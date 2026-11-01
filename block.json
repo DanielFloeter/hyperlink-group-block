@@ -3,36 +3,84 @@
 	"name": "tiptip/hyperlink-group-block",
 	"title": "Hyperlink Group",
 	"category": "design",
-    "supports": {
-        "html": true,
-        "anchor": true,
-        "align": true,
+	"supports": {
+		"html": true,
+		"anchor": true,
+		"align": true,
+		"color": {
+			"gradients": true,
+			"heading": true,
+			"link": true,
+			"__experimentalDefaultControls": {
+				"background": true,
+				"text": true,
+				"link": true
+			}
+		},
+		"shadow": true,
 		"spacing": {
 			"margin": true,
-			"padding": true
+			"padding": true,
+			"blockGap": true,
+			"__experimentalDefaultControls": {
+				"padding": true,
+				"blockGap": true
+			}
+		},
+		"dimensions": {
+			"minHeight": true
+		},
+		"__experimentalBorder": {
+			"color": true,
+			"radius": true,
+			"style": true,
+			"width": true,
+			"__experimentalDefaultControls": {
+				"color": true,
+				"radius": true,
+				"style": true,
+				"width": true
+			}
+		},
+		"position": {
+			"sticky": true
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalTextTransform": true,
+			"__experimentalTextDecoration": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
+		},
+		"layout": {
+			"allowSizingOnChildren": true
+		},
+		"background": {
+			"backgroundImage": true,
+			"backgroundSize": true,
+			"__experimentalDefaultControls": {
+				"backgroundImage": true
+			}
 		},
 		"interactivity": {
 			"clientNavigation": true
 		}
-    },
+	},
 	"usesContext": [ "postId", "postType", "queryId" ],
-    "attributes": {
-		"colorText": {
-			"type": "string"
-		},
-		"colorBkg": {
-			"type": "string"
-		},
-		"colorBkgHover": {
-			"type": "string"
-		},
+	"attributes": {
 		"url": {
 			"type": "string"
 		},
 		"title": {
 			"type": "string"
 		},
-        "linkTarget": {
+		"linkTarget": {
 			"type": "string"
 		},
 		"ariaLabel": {
@@ -41,20 +89,11 @@
 		"rel": {
 			"type": "string"
 		},
-        "backgroundColor": {
-			"type": "string"
-		},
-		"textColor": {
-			"type": "string"
-		},
-        "gradient": {
-			"type": "string"
-		},
 		"queryLoopLink": {
 			"type": "boolean",
 			"default": false
 		}
-    },
+	},
 	"textdomain": "hyperlink-group-block",
 	"editorScript": "file:./build/index.js",
 	"editorStyle": "file:./build/style-index.css",
