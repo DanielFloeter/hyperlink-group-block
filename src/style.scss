@@ -28,4 +28,9 @@
 	&.has-hgb-hover-background:focus-visible {
 		background: var(--hgb-hover-background) !important;
 	}
+
+	&.has-hgb-hover-text-decoration:hover,
+	&.has-hgb-hover-text-decoration:focus-visible {
+		text-decoration: var(--hgb-hover-text-decoration) !important;
+	}
 }

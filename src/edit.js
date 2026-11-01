@@ -9,6 +9,7 @@ import {
 	Popover,
 	ToggleControl,
 	PanelBody,
+	__experimentalToolsPanelItem as ToolsPanelItem,
 } from '@wordpress/components';
 import { 
 	InnerBlocks,
@@ -23,12 +24,17 @@ import {
 	InspectorControls,
 	__experimentalColorGradientSettingsDropdown as ColorGradientSettingsDropdown,
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
+	__experimentalTextDecorationControl as TextDecorationControl,
 } from '@wordpress/block-editor';
 import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
 import { link, linkOff } from '@wordpress/icons';
 import { useEntityProp } from '@wordpress/core-data';
 
-import { getLinkColorProps, setHoverBackground } from './link-colors';
+import {
+	getLinkColorProps,
+	setHoverBackground,
+	setHoverTextDecoration,
+} from './link-colors';
 
 export const useInnerBlocksProps = __experimentalUseInnerBlocksProps || stableUseInnerBlocksProps; // WP +5.9
 export const LinkControl         = __experimentalLinkControl || stableLinkControl; // WP +5.9
@@ -65,6 +71,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		style: linkColorProps.style,
 	} );
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
+	const hoverTextDecoration = style?.elements?.link?.[ ':hover' ]?.typography?.textDecoration;
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		renderAppender: hasInnerBlocks
 			? undefined
@@ -276,6 +283,33 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 						gradients={ [] }
 						disableCustomGradients
 					/>
+				</InspectorControls>
+				<InspectorControls group="typography">
+					<ToolsPanelItem
+						label={ __( 'Hover decoration', 'hyperlink-group-block' ) }
+						hasValue={ () => !! hoverTextDecoration }
+						onDeselect={ () =>
+							setAttributes( { style: setHoverTextDecoration( style, undefined ) } )
+						}
+						resetAllFilter={ ( attrs ) => ( {
+							...attrs,
+							style: setHoverTextDecoration( attrs.style, undefined ),
+						} ) }
+						panelId={ clientId }
+					>
+						<TextDecorationControl
+							label={ __( 'Hover decoration', 'hyperlink-group-block' ) }
+							value={ hoverTextDecoration }
+							onChange={ ( value ) =>
+								setAttributes( {
+									style: setHoverTextDecoration(
+										style,
+										value === hoverTextDecoration ? undefined : value
+									),
+								} )
+							}
+						/>
+					</ToolsPanelItem>
 				</InspectorControls>
 				<a { ...innerBlocksProps } />
 		</>
