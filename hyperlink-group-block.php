@@ -38,6 +38,8 @@ function render_block_core( $attributes, $content, $block ) {
 		$inner_block_content = $inner_block->render();
 		$inner_blocks_html .= $inner_block_content;
 	}
+	// The wrapper is an <a>, nested links would be invalid HTML.
+	$inner_blocks_html  = strip_anchors( $inner_blocks_html );
 	return sprintf(
 		'<a %1$s %2$s %3$s %4$s %5$s %6$s>%7$s</a>',
 		$post_url,
@@ -67,43 +69,53 @@ function create_hyperlink_group_block_init() {
 add_action( 'init', __NAMESPACE__ . '\create_hyperlink_group_block_init' );
 
 /**
- * Strip inner anchor elements
- *
+ * Tag processor which can rename the tag name of the current tag.
  */
-function add_button_size_class( $block_content = '', $block = [] ) {
-	if ( isset( $block['blockName'] ) && 'tiptip/hyperlink-group-block' === $block['blockName'] ) {
-		$stripAnchors = function( $block ) use ( &$stripAnchors, &$block_content ) {
-			foreach( $block as $b){
-				if( str_contains( $b['innerHTML'], '<a' ) ) { 
-					$replace = $b['innerHTML'];
-					$b['innerHTML'] = str_replace(
-						'<a',
-						'<span',
-						$b['innerHTML']
-					);
-					$b['innerHTML'] = str_replace(
-						'</a>',
-						'</span>',
-						$b['innerHTML']
-					);
-					$block_content = preg_replace(
-						'/\s[a-zA-Z0-9-]*--[a-zA-Z0-9]*/',
-						'',
-						$block_content
-					);
-					$block_content = str_replace(
-						trim($replace),
-						$b['innerHTML'],
-						$block_content
-					);
-				}
-				if( ! empty( $b['innerBlocks'] ) ) { 
-					$stripAnchors( $b['innerBlocks'] );
-				}
-			}
-		};
-		$stripAnchors( $block['innerBlocks'] );
+class Anchor_Stripper extends \WP_HTML_Tag_Processor {
+	/**
+	 * Replaces the tag name of the current tag (opener or closer).
+	 */
+	public function rename_current_tag( $new_name ) {
+		if ( ! $this->set_bookmark( 'hgb-current' ) ) {
+			return false;
+		}
+		$span = $this->bookmarks['hgb-current'];
+		$this->release_bookmark( 'hgb-current' );
 
+		// `<a` or `</a`: the tag name begins after `<` or `</`.
+		$name_starts_at          = $span->start + ( $this->is_tag_closer() ? 2 : 1 );
+		$this->lexical_updates[] = new \WP_HTML_Text_Replacement( $name_starts_at, strlen( $this->get_tag() ), $new_name );
+		return true;
+	}
+}
+
+/**
+ * Turns every <a> in the given HTML into a <span> and removes link-only
+ * attributes, so the inner blocks can be wrapped by the block's <a>.
+ */
+function strip_anchors( $html ) {
+	if ( '' === $html || false === stripos( $html, '<a' ) ) {
+		return $html;
+	}
+	$link_attributes = [ 'href', 'target', 'rel', 'download', 'hreflang', 'ping', 'referrerpolicy', 'type' ];
+
+	$processor = new Anchor_Stripper( $html );
+	while ( $processor->next_tag( [ 'tag_name' => 'a', 'tag_closers' => 'visit' ] ) ) {
+		if ( ! $processor->is_tag_closer() ) {
+			foreach ( $link_attributes as $attribute ) {
+				$processor->remove_attribute( $attribute );
+			}
+		}
+		$processor->rename_current_tag( 'span' );
+	}
+	return $processor->get_updated_html();
+}
+
+/**
+ * Adds link colors to the rendered block.
+ */
+function render_link_colors( $block_content = '', $block = [] ) {
+	if ( isset( $block['blockName'] ) && 'tiptip/hyperlink-group-block' === $block['blockName'] ) {
 		return apply_link_colors( $block_content, isset( $block['attrs'] ) ? $block['attrs'] : [] );
 	}
 	return $block_content;
@@ -196,4 +208,4 @@ function apply_link_colors( $block_content, $attrs ) {
 	return $processor->get_updated_html();
 }
 
-add_filter( 'render_block', __NAMESPACE__ . '\add_button_size_class', 10, 2 );
+add_filter( 'render_block', __NAMESPACE__ . '\render_link_colors', 10, 2 );
