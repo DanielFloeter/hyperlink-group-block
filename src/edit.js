@@ -9,6 +9,9 @@ import {
 	Popover,
 	ToggleControl,
 	PanelBody,
+	__experimentalToolsPanelItem as ToolsPanelItem,
+	__experimentalToggleGroupControl as ToggleGroupControl,
+	__experimentalToggleGroupControlOptionIcon as ToggleGroupControlOptionIcon,
 } from '@wordpress/components';
 import { 
 	InnerBlocks,
@@ -25,10 +28,20 @@ import {
 	__experimentalUseMultipleOriginColorsAndGradients as useMultipleOriginColorsAndGradients,
 } from '@wordpress/block-editor';
 import { rawShortcut, displayShortcut } from '@wordpress/keycodes';
-import { link, linkOff } from '@wordpress/icons';
+import {
+	link,
+	linkOff,
+	reset,
+	formatUnderline,
+	formatStrikethrough,
+} from '@wordpress/icons';
 import { useEntityProp } from '@wordpress/core-data';
 
-import { getLinkColorProps, setHoverBackground } from './link-colors';
+import {
+	getLinkColorProps,
+	setHoverBackground,
+	setHoverTextDecoration,
+} from './link-colors';
 
 export const useInnerBlocksProps = __experimentalUseInnerBlocksProps || stableUseInnerBlocksProps; // WP +5.9
 export const LinkControl         = __experimentalLinkControl || stableLinkControl; // WP +5.9
@@ -65,6 +78,9 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		style: linkColorProps.style,
 	} );
 	const colorGradientSettings = useMultipleOriginColorsAndGradients();
+	const hoverTextDecoration = style?.elements?.link?.[ ':hover' ]?.typography?.textDecoration;
+	// Core strings, so the label is translated by WordPress ("Dekoration (Hover)").
+	const hoverDecorationLabel = `${ __( 'Decoration' ) } (${ __( 'Hover' ) })`;
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		renderAppender: hasInnerBlocks
 			? undefined
@@ -276,6 +292,37 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 						gradients={ [] }
 						disableCustomGradients
 					/>
+				</InspectorControls>
+				<InspectorControls group="typography">
+					<ToolsPanelItem
+						label={ hoverDecorationLabel }
+						hasValue={ () => !! hoverTextDecoration }
+						onDeselect={ () =>
+							setAttributes( { style: setHoverTextDecoration( style, undefined ) } )
+						}
+						resetAllFilter={ ( attrs ) => ( {
+							...attrs,
+							style: setHoverTextDecoration( attrs.style, undefined ),
+						} ) }
+						panelId={ clientId }
+					>
+						<ToggleGroupControl
+							__nextHasNoMarginBottom
+							__next40pxDefaultSize
+							isDeselectable
+							label={ hoverDecorationLabel }
+							value={ hoverTextDecoration }
+							onChange={ ( value ) =>
+								setAttributes( {
+									style: setHoverTextDecoration( style, value ),
+								} )
+							}
+						>
+							<ToggleGroupControlOptionIcon value="none" icon={ reset } label={ __( 'None' ) } />
+							<ToggleGroupControlOptionIcon value="underline" icon={ formatUnderline } label={ __( 'Underline' ) } />
+							<ToggleGroupControlOptionIcon value="line-through" icon={ formatStrikethrough } label={ __( 'Strikethrough' ) } />
+						</ToggleGroupControl>
+					</ToolsPanelItem>
 				</InspectorControls>
 				<a { ...innerBlocksProps } />
 		</>

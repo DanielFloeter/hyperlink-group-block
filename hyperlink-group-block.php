@@ -141,6 +141,9 @@ function apply_link_colors( $block_content, $attrs ) {
 	$hover_color      = css_color_value( isset( $hover['color']['text'] ) ? $hover['color']['text'] : '' );
 	$hover_background = css_color_value( isset( $hover['color']['background'] ) ? $hover['color']['background'] : '' );
 
+	$hover_decoration = isset( $hover['typography']['textDecoration'] ) ? $hover['typography']['textDecoration'] : '';
+	$hover_decoration = in_array( $hover_decoration, [ 'none', 'underline', 'overline', 'line-through' ], true ) ? $hover_decoration : '';
+
 	$declarations = [];
 	$classes      = [];
 
@@ -168,6 +171,11 @@ function apply_link_colors( $block_content, $attrs ) {
 	if ( $hover_background ) {
 		$declarations[] = '--hgb-hover-background:' . $hover_background;
 		$classes[]      = 'has-hgb-hover-background';
+	}
+
+	if ( $hover_decoration ) {
+		$declarations[] = '--hgb-hover-text-decoration:' . $hover_decoration;
+		$classes[]      = 'has-hgb-hover-text-decoration';
 	}
 
 	if ( ! $declarations ) {

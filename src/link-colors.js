@@ -29,6 +29,7 @@ export function getLinkStyles( style ) {
 		color: toCssValue( link?.color?.text ),
 		hoverColor: toCssValue( link?.[ ':hover' ]?.color?.text ),
 		hoverBackground: toCssValue( link?.[ ':hover' ]?.color?.background ),
+		hoverTextDecoration: link?.[ ':hover' ]?.typography?.textDecoration,
 	};
 }
 
@@ -39,7 +40,8 @@ export function getLinkStyles( style ) {
  * @return {{className: Object, style: Object}} Props for useBlockProps.
  */
 export function getLinkColorProps( style ) {
-	const { color, hoverColor, hoverBackground } = getLinkStyles( style );
+	const { color, hoverColor, hoverBackground, hoverTextDecoration } =
+		getLinkStyles( style );
 	const cssVars = {};
 	if ( color ) {
 		cssVars[ '--hgb-link-color' ] = color;
@@ -50,8 +52,12 @@ export function getLinkColorProps( style ) {
 	if ( hoverBackground ) {
 		cssVars[ '--hgb-hover-background' ] = hoverBackground;
 	}
+	if ( hoverTextDecoration ) {
+		cssVars[ '--hgb-hover-text-decoration' ] = hoverTextDecoration;
+	}
 	return {
 		className: {
+			'has-hgb-hover-text-decoration': !! hoverTextDecoration,
 			'has-hgb-link-color': !! color,
 			'has-hgb-link-hover-color': !! hoverColor,
 			'has-hgb-hover-background': !! hoverBackground,
@@ -79,13 +85,15 @@ export function cleanEmptyObject( object ) {
 }
 
 /**
- * Returns a new style object with the hover background set.
+ * Returns a new style object with a `style.elements.link[':hover']` value set.
  *
  * @param {Object}           style Current style attribute.
- * @param {string|undefined} value New color.
+ * @param {string}           group Style group, e.g. `color` or `typography`.
+ * @param {string}           prop  Property, e.g. `background`.
+ * @param {string|undefined} value New value.
  * @return {Object|undefined} New style attribute.
  */
-export function setHoverBackground( style, value ) {
+export function setHoverStyle( style, group, prop, value ) {
 	const link = style?.elements?.link ?? {};
 	const hover = link[ ':hover' ] ?? {};
 	return cleanEmptyObject( {
@@ -96,12 +104,18 @@ export function setHoverBackground( style, value ) {
 				...link,
 				':hover': {
 					...hover,
-					color: { ...hover.color, background: value },
+					[ group ]: { ...hover[ group ], [ prop ]: value },
 				},
 			},
 		},
 	} );
 }
+
+export const setHoverBackground = ( style, value ) =>
+	setHoverStyle( style, 'color', 'background', value );
+
+export const setHoverTextDecoration = ( style, value ) =>
+	setHoverStyle( style, 'typography', 'textDecoration', value );
 
 /**
  * Maps the legacy attributes `colorText`, `colorBkg`, `colorBkgHover`
