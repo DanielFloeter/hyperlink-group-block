@@ -4,6 +4,8 @@
  * Plugin URI:      https://wordpress.org/plugins/hyperlink-group-block/
  * Description:     Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
  * Version:         2.1.0
+ * Requires at least: 6.6
+ * Requires PHP:      7.2
  * Author:          TipTopPress
  * Author URI:      http://tiptoppress.com
  * License:         GPL-2.0-or-later

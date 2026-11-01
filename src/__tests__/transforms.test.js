@@ -14,11 +14,13 @@ const NAME = 'tiptip/hyperlink-group-block';
 
 beforeAll( () => {
 	registerBlockType( 'core/paragraph', {
+		apiVersion: 3,
 		title: 'P',
 		attributes: { content: { type: 'string' } },
 		save: () => null,
 	} );
 	registerBlockType( 'core/group', {
+		apiVersion: 3,
 		title: 'Group',
 		supports: { anchor: true, align: true, color: { gradients: true } },
 		attributes: {

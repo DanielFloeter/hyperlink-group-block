@@ -6,6 +6,7 @@ jest.mock( '../edit', () => () => null );
 
 beforeAll( () => {
 	registerBlockType( 'core/paragraph', {
+		apiVersion: 3,
 		title: 'P',
 		supports: { className: false },
 		attributes: { content: { type: 'string', source: 'html', selector: 'p' } },
