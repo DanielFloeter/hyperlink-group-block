@@ -66,7 +66,7 @@ Search content: "http" [YouTube](https://wpml.org/announcements/2020/02/translat
 
 = Can I use links within the Hyperlink Group Block? =
 
-No, that is illegal and causes errors in the renderd HTML.
+Yes. Inner links stay clickable, the group is then rendered as `<div>` with a stretched link covering the whole block.
 
 == Screenshots ==
 
@@ -84,6 +84,7 @@ No, that is illegal and causes errors in the renderd HTML.
 * Security protection
 * Transform: Group to Hyperlink Group and back (replace instead of wrap), 
 * Ungroup
+* Inner links stay clickable with stretched links
 
 = 2.0.5 - Feb 18th 2026 =
 * Set tab name to open link in the same tab

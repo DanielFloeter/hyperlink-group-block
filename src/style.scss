@@ -20,17 +20,61 @@
 	}
 
 	&.has-hgb-link-hover-color:hover,
-	&.has-hgb-link-hover-color:focus-visible {
+	&.has-hgb-link-hover-color:focus-visible,
+	&.has-hgb-link-hover-color:has(> .hgb-stretched-link:focus-visible) {
 		color: var(--hgb-link-hover-color) !important;
 	}
 
 	&.has-hgb-hover-background:hover,
-	&.has-hgb-hover-background:focus-visible {
+	&.has-hgb-hover-background:focus-visible,
+	&.has-hgb-hover-background:has(> .hgb-stretched-link:focus-visible) {
 		background: var(--hgb-hover-background) !important;
 	}
 
 	&.has-hgb-hover-text-decoration:hover,
-	&.has-hgb-hover-text-decoration:focus-visible {
+	&.has-hgb-hover-text-decoration:focus-visible,
+	&.has-hgb-hover-text-decoration:has(> .hgb-stretched-link:focus-visible) {
 		text-decoration: var(--hgb-hover-text-decoration) !important;
+	}
+}
+
+/**
+ * Nested links (front end only): the wrapper is a `<div>`, its first child
+ * an empty `<a class="hgb-stretched-link">` whose `::after` covers the whole
+ * block. Inner links and controls are lifted above it.
+ */
+// Zero specificity so the position support (sticky) wins.
+:where(.wp-block-tiptip-hyperlink-group-block.has-nested-links) {
+	position: relative;
+}
+
+.wp-block-tiptip-hyperlink-group-block.has-nested-links {
+	> .hgb-stretched-link {
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			z-index: 1;
+		}
+
+		&:focus-visible {
+			outline: none;
+
+			&::after {
+				outline: 2px solid currentColor;
+				outline-offset: -2px;
+			}
+		}
+	}
+
+	a:not(.hgb-stretched-link),
+	button,
+	input,
+	select,
+	textarea,
+	label,
+	summary {
+		position: relative;
+		z-index: 2;
 	}
 }

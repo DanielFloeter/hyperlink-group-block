@@ -28,18 +28,23 @@ function render_block_core( $attributes, $content, $block ) {
 	$title         		= ! empty( $attributes['title'] ) ? 'title="' . esc_attr( $attributes['title'] ) . '"' : '';
 
 	$url                = isset( $attributes['url'] ) && $attributes['url'] ? $attributes['url'] : "";
-	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
 
-	$post_url           = $attributes['queryLoopLink'] ? get_the_permalink( get_the_ID() ) : esc_url($url);
+	$post_url           = ! empty( $attributes['queryLoopLink'] ) ? esc_url( get_the_permalink( get_the_ID() ) ) : esc_url( $url );
 	$post_url           = $post_url !== '' ? 'href="' . $post_url . '"' : '';
-	
+
 	$inner_blocks_html  = '';
 	foreach ( $block->inner_blocks as $inner_block ) {
 		$inner_block_content = $inner_block->render();
 		$inner_blocks_html .= $inner_block_content;
 	}
-	// The wrapper is an <a>, nested links would be invalid HTML.
-	$inner_blocks_html  = strip_anchors( $inner_blocks_html );
+
+	// Nested links would be invalid HTML inside the wrapper <a>: keep them
+	// clickable, the wrapper becomes a <div> with a stretched link.
+	if ( has_anchors( $inner_blocks_html ) ) {
+		return render_stretched_link( $attributes, $post_url, $linkTarget, $rel, $title, $align_class_name, $inner_blocks_html );
+	}
+
+	$wrapper_attributes = get_block_wrapper_attributes( array( 'class' => $align_class_name ) );
 	return sprintf(
 		'<a %1$s %2$s %3$s %4$s %5$s %6$s>%7$s</a>',
 		$post_url,
@@ -50,6 +55,67 @@ function render_block_core( $attributes, $content, $block ) {
 		$linkTarget,
 		$inner_blocks_html
 	);
+}
+
+/**
+ * Renders the block as `<div>` with an empty "stretched link" as first child.
+ * The link covers the whole block via CSS (`::after`), inner links are lifted
+ * above it and stay clickable. See style.scss (`.has-nested-links`).
+ */
+function render_stretched_link( $attributes, $href, $link_target, $rel, $title, $align_class_name, $inner_blocks_html ) {
+	$wrapper_attributes = get_block_wrapper_attributes(
+		array( 'class' => trim( $align_class_name . ' has-nested-links' ) )
+	);
+
+	$link = '';
+	if ( '' !== $href ) {
+		$name = ! empty( $attributes['ariaLabel'] ) ? $attributes['ariaLabel'] : '';
+		if ( '' === $name && ! empty( $attributes['title'] ) ) {
+			$name = $attributes['title'];
+		}
+		if ( '' === $name ) {
+			$name = accessible_name_from_html( $inner_blocks_html );
+		}
+		$aria_label = '' !== $name ? 'aria-label="' . esc_attr( $name ) . '"' : '';
+
+		$link = sprintf(
+			'<a class="hgb-stretched-link" %1$s %2$s %3$s %4$s %5$s></a>',
+			$href,
+			$link_target,
+			$rel,
+			$aria_label,
+			$title
+		);
+	}
+
+	return sprintf( '<div %1$s>%2$s%3$s</div>', $wrapper_attributes, $link, $inner_blocks_html );
+}
+
+/**
+ * Whether the HTML contains an <a> tag.
+ */
+function has_anchors( $html ) {
+	if ( '' === $html || false === stripos( $html, '<a' ) ) {
+		return false;
+	}
+	$processor = new \WP_HTML_Tag_Processor( $html );
+	return $processor->next_tag( 'a' );
+}
+
+/**
+ * Text for the stretched link's aria-label: the first heading, otherwise
+ * the beginning of the block's text.
+ */
+function accessible_name_from_html( $html ) {
+	$text = '';
+	if ( preg_match( '/<h[1-6][^>]*>(.*?)<\/h[1-6]>/is', $html, $matches ) ) {
+		$text = wp_strip_all_tags( $matches[1] );
+	}
+	if ( '' === trim( $text ) ) {
+		$text = wp_strip_all_tags( $html );
+	}
+	$text = trim( preg_replace( '/\s+/', ' ', $text ) );
+	return wp_trim_words( $text, 12, '…' );
 }
 
 /**
@@ -67,49 +133,6 @@ function create_hyperlink_group_block_init() {
 );
 }
 add_action( 'init', __NAMESPACE__ . '\create_hyperlink_group_block_init' );
-
-/**
- * Tag processor which can rename the tag name of the current tag.
- */
-class Anchor_Stripper extends \WP_HTML_Tag_Processor {
-	/**
-	 * Replaces the tag name of the current tag (opener or closer).
-	 */
-	public function rename_current_tag( $new_name ) {
-		if ( ! $this->set_bookmark( 'hgb-current' ) ) {
-			return false;
-		}
-		$span = $this->bookmarks['hgb-current'];
-		$this->release_bookmark( 'hgb-current' );
-
-		// `<a` or `</a`: the tag name begins after `<` or `</`.
-		$name_starts_at          = $span->start + ( $this->is_tag_closer() ? 2 : 1 );
-		$this->lexical_updates[] = new \WP_HTML_Text_Replacement( $name_starts_at, strlen( $this->get_tag() ), $new_name );
-		return true;
-	}
-}
-
-/**
- * Turns every <a> in the given HTML into a <span> and removes link-only
- * attributes, so the inner blocks can be wrapped by the block's <a>.
- */
-function strip_anchors( $html ) {
-	if ( '' === $html || false === stripos( $html, '<a' ) ) {
-		return $html;
-	}
-	$link_attributes = [ 'href', 'target', 'rel', 'download', 'hreflang', 'ping', 'referrerpolicy', 'type' ];
-
-	$processor = new Anchor_Stripper( $html );
-	while ( $processor->next_tag( [ 'tag_name' => 'a', 'tag_closers' => 'visit' ] ) ) {
-		if ( ! $processor->is_tag_closer() ) {
-			foreach ( $link_attributes as $attribute ) {
-				$processor->remove_attribute( $attribute );
-			}
-		}
-		$processor->rename_current_tag( 'span' );
-	}
-	return $processor->get_updated_html();
-}
 
 /**
  * Adds link colors to the rendered block.
@@ -136,7 +159,7 @@ function css_color_value( $value ) {
 }
 
 /**
- * Adds link/hover colors to the block wrapper (`<a>`).
+ * Adds link/hover colors to the block wrapper (`<a>`, or `<div>` with nested links).
  *
  * Native `elements.link` styles only target descendant links, so they are
  * exposed as custom properties + classes on the wrapper (see style.scss).
@@ -194,8 +217,9 @@ function apply_link_colors( $block_content, $attrs ) {
 		return $block_content;
 	}
 
+	// The wrapper is the first tag: <a>, or <div> with nested links.
 	$processor = new \WP_HTML_Tag_Processor( $block_content );
-	if ( ! $processor->next_tag( 'a' ) ) {
+	if ( ! $processor->next_tag() ) {
 		return $block_content;
 	}
 	foreach ( $classes as $class ) {
