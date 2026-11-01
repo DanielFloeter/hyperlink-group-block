@@ -27,6 +27,18 @@ registerBlockType( name, {
 		__('hyperlink'),
 		__('link'),
         __('tiptoppress'),
+		__( 'card', 'hyperlink-group-block' ),
+		__( 'teaser', 'hyperlink-group-block' ),
+		__( 'box', 'hyperlink-group-block' ),
+		__( 'tile', 'hyperlink-group-block' ),
+		__( 'banner', 'hyperlink-group-block' ),
+		__( 'call to action', 'hyperlink-group-block' ),
+		__( 'clickable', 'hyperlink-group-block' ),
+		__( 'stretched link', 'hyperlink-group-block' ),
+		__( 'linked group', 'hyperlink-group-block' ),
+		__( 'url', 'hyperlink-group-block' ),
+		__( 'group', 'hyperlink-group-block' ),
+		__( 'section', 'hyperlink-group-block' ),
 	],
 	example: {
 		attributes: {
