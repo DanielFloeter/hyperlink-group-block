@@ -1,7 +1,7 @@
 === Hyperlink Group Block ===
 Contributors:      kometschuh
 Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
-Tags:              block, hyperlink, link, gutenberg, anchor
+Tags:              clickable, hyperlink, link, card, anchor
 Requires at least: 6.6
 Tested up to:      7.1
 Stable tag:        2.1.0
@@ -9,32 +9,28 @@ Requires PHP:      7.2
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
-Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
+Make a group of blocks clickable: wrap a card, teaser or post tile with one link (&lt;a&gt;).
 
 == Description ==
 
-Combine blocks into a group wrapped with an hyperlink (&lt;a&gt;).
-After inserting a Hyperlink Group Block, a Block inserter icon will be displayed to allow you to add new Blocks inside that Hyperlink Group Block.
+The Hyperlink Group Block wraps any blocks, like an image, heading and text, with a single link. The whole area becomes clickable, perfect for cards, teasers and call-to-action boxes.
 
-= Tip Top Press =
-We're [Tip Top Press](http://tiptoppress.com/?utm_source=wp.org&utm_medium=readme.txt&utm_campaign=hyperlink+group+block&utm_content=TipTopPress) and create Gutenberg Blocks for Wordpress. If you want to know about what we're working on and you are interested in backgrounds then you can read all newes storys on our [blog](http://tiptoppress.com/blog/?utm_source=wp.org&utm_medium=readme.txt&utm_campaign=hyperlink+group+block&utm_content=blog).
+Inside a Query Loop, the block can link to the current post, so every post tile becomes clickable.
 
 = Grouping Existing Blocks =
-It's also possible to group existing Blocks. 
-Select the Blocks which should be grouped with a Hyperlink. The Block Toolbar will appear. Click on the Block icon and select the Hyperlink Block to transform the selected Blocks to an Hyperlink Block with some InnerBlocks.
-
-= Advanced =
-On the Advanced Tab set the link's [target](https://developer.mozilla.org/en-US/docs/Web/SVG/Reference/Attribute/target), [rel](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/rel), [title](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/title) and [aria-label](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-label) attributes.
+Select the blocks, click the block icon in the toolbar and choose Hyperlink Group Block. A Group Block can be transformed into a Hyperlink Group Block and back.
 
 = Features =
-* Wrap Blocks with a hyperlink
-* Use link from Query Loop Block
-* Transform Blocks into a group wrapped with an HTML anchor tag (&lt;a&gt;)
-* Set the link href attribute
-* Set rel, title and aria-label attributes
-* Option open in a new window and set tab name to open in the same tab
-* Set hover background color
-* Inner anchor elements are automatically deleted
+* Wrap blocks with a link
+* Use the link from the Query Loop Block
+* Transform blocks or a Group Block into a Hyperlink Group Block and back
+* Set rel, title, aria-label and target (open in a new tab or a named tab)
+* Native block supports: colors, link and link hover color, typography, spacing, border, shadow, background image
+* Hover background color and hover text decoration
+* Inner links stay clickable (stretched link)
+
+= Tip Top Press =
+We're [Tip Top Press](https://tiptoppress.com/) and create Gutenberg blocks for WordPress. Read news and background stories on our [blog](https://tiptoppress.com/blog/).
 
 = Contribute =
 While using this plugin if you find any bug or any conflict, please submit an issue at [Github](https://github.com/DanielFloeter/hyperlink-group-block) (If possible with a pull request).
@@ -68,10 +64,18 @@ Search content: "http" [YouTube](https://wpml.org/announcements/2020/02/translat
 
 Yes. Inner links stay clickable, the group is then rendered as `<div>` with a stretched link covering the whole block.
 
+= Can I change the text decoration on hover? =
+
+Yes. In the block sidebar open Styles > Typography, click the options menu (⋮) and enable "Decoration (Hover)". Choose Underline.
+
+= Can I set the link color and link hover color? =
+
+Yes. The block uses the native WordPress block supports. In the block sidebar open Styles > Color > Link to set the link color and the hover color. There you can also set text, background, heading and "Background hover" colors.
+
 == Screenshots ==
 
-1. Hyperlink Group Block to group Blocks with an hyperlink.
-2. Wrap Blocks with a link.
+1. Hyperlink Group Block in the editor with the native style settings: typography, background hover color, background image and layout.
+2. Set the link URL and open it in a new tab.
 3. Rendered HTML.
 4. Advanced Settings for link target, rel, title and aria-label attributes.
 5. Transform Blocks into a group wrapped with an anchor tag
@@ -79,11 +83,9 @@ Yes. Inner links stay clickable, the group is then rendered as `<div>` with a st
 == Changelog ==
 
 = 2.1.0 - Nov 1st 2026 =
-* Hover text decoration
-* Native block support, like link hover color
-* Security protection
-* Transform: Group to Hyperlink Group and back (replace instead of wrap), 
-* Ungroup
+* Native block support, like text, heading or "Link hover color"
+* Hover text decoration (block option)
+* Transform: Group to Hyperlink Group and back (replace instead of wrap)
 * Inner links stay clickable with stretched links
 
 = 2.0.5 - Feb 18th 2026 =
