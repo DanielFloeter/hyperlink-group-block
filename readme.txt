@@ -25,8 +25,8 @@ Select the blocks, click the block icon in the toolbar and choose Hyperlink Grou
 * Use the link from the Query Loop Block
 * Transform blocks or a Group Block into a Hyperlink Group Block and back
 * Set rel, title, aria-label and target (open in a new tab or a named tab)
-* Native block supports: colors, link and link hover color, typography, spacing, border, shadow, background image
-* Hover background color and hover text decoration
+* Native block supports: colors, link and link hover color, typography, spacing
+* Hover background color and hover text decoration (block option)
 * Inner links stay clickable (stretched link)
 
 = Tip Top Press =
