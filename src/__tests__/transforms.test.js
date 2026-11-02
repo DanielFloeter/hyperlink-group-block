@@ -3,6 +3,7 @@ import {
 	registerBlockType,
 	switchToBlockType,
 	getBlockType,
+	getPossibleBlockTransformations,
 } from '@wordpress/blocks';
 // Registers the block supports hooks that add `anchor`, `style`, colors, …
 import '@wordpress/block-editor';
@@ -116,4 +117,18 @@ test( 'ungroup returns the inner blocks', () => {
 	const { ungroup } = getBlockType( NAME ).transforms;
 
 	expect( ungroup( {}, inner ) ).toBe( inner );
+} );
+
+test( 'a single Hyperlink Group is not offered to transform into itself', () => {
+	const link = createBlock( NAME, {}, [
+		createBlock( 'core/paragraph', { content: 'Hi' } ),
+	] );
+	const paragraph = createBlock( 'core/paragraph', { content: 'Hi' } );
+
+	const names = ( blocks ) =>
+		getPossibleBlockTransformations( blocks ).map( ( t ) => t.name );
+
+	expect( names( [ link ] ) ).not.toContain( NAME );
+	expect( names( [ paragraph ] ) ).toContain( NAME );
+	expect( names( [ link, paragraph ] ) ).toContain( NAME );
 } );

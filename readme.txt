@@ -72,13 +72,19 @@ Yes. In the block sidebar open Styles > Typography, click the options menu (⋮)
 
 Yes. The block uses the native WordPress block supports. In the block sidebar open Styles > Color > Link to set the link color and the hover color. There you can also set text, background, heading and "Background hover" colors.
 
+= How do I open several links in the same tab? =
+
+Use the "Tab name" field. In the block sidebar open Advanced and enter a name, e.g. `preview`. It is used as the link target (`target="preview"`). The first click opens a new tab with this name, every other link with the same tab name opens in this tab instead of a new one.
+
+`_blank` opens a new tab on every click, like "Open in new tab". With any other tab name the "Link rel" field is cleared.
+
 == Screenshots ==
 
 1. Hyperlink Group Block in the editor with the native style settings: typography, background hover color, background image and layout.
 2. Set the link URL and open it in a new tab.
-3. Rendered HTML.
-4. Advanced Settings for link target, rel, title and aria-label attributes.
-5. Transform Blocks into a group wrapped with an anchor tag
+3. Rendered HTML of two examples. A: a heading and a paragraph, the whole block is one link with target, rel, title and aria-label. B: a paragraph with an inner link, the block becomes a div with a stretched link, so the inner link stays clickable.
+4. Block settings: link to the current post inside a Query Loop, and advanced settings for HTML anchor, CSS classes, tab name (target), rel, aria-label and title.
+5. Transform blocks or a Group Block into a Hyperlink Group Block and back.
 
 == Changelog ==
 

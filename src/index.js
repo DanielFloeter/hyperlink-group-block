@@ -16,7 +16,7 @@ registerBlockType( name, {
 	...metadata,
 	icon,
 	description: __(
-        'Combine blocks into a group wrapped with an hyperlink.',
+        'Combine blocks into a group wrapped with a hyperlink.',
         'hyperlink-group-block'
     ),
 	keywords: [
@@ -119,6 +119,13 @@ registerBlockType( name, {
 				type: 'block',
 				isMultiBlock: true,
 				blocks: [ '*' ],
+				// Hide the transform for a single Hyperlink Group: converting it
+				// would do nothing, the menu shows an empty preview.
+				isMatch: ( attributes, blocks ) =>
+					! (
+						blocks.length === 1 &&
+						blocks[ 0 ].name === 'tiptip/hyperlink-group-block'
+					),
 				__experimentalConvert( blocks ) {
 					// Avoid transforming a single `core/group` Block
 					if (

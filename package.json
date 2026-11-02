@@ -1,7 +1,7 @@
 {
 	"name": "hyperlink-group",
 	"version": "1.0.8",
-	"description": "Combine blocks into a group wrapped with an hyperlink.",
+	"description": "Combine blocks into a group wrapped with a hyperlink.",
 	"author": "kometschuh",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
