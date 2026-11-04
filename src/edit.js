@@ -57,6 +57,8 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		url,
 		queryLoopLink,
 		style,
+		// Added by the `allowedBlocks` block support (Advanced panel).
+		allowedBlocks,
 	} = attributes;
 	const [ queryLoopUrl ] = useEntityProp( 'postType', postType, 'link', postId );
 	const { hasInnerBlocks } = useSelect(
@@ -82,6 +84,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 	// Core strings, so the label is translated by WordPress ("Dekoration (Hover)").
 	const hoverDecorationLabel = `${ __( 'Decoration' ) } (${ __( 'Hover' ) })`;
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
+		allowedBlocks,
 		renderAppender: hasInnerBlocks
 			? undefined
 			: InnerBlocks.ButtonBlockAppender
