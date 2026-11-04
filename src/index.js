@@ -110,7 +110,7 @@ registerBlockType( name, {
 				priority: 5, // must win over the '*' wildcard transform (default 10)
 				transform: ( attributes, innerBlocks ) => {
 					// Group-only attributes the Hyperlink Group doesn't have.
-					const { tagName, templateLock, ...rest } = attributes;
+					const { tagName, ...rest } = attributes;
 					return createBlock( name, rest, innerBlocks );
 				},
 			},

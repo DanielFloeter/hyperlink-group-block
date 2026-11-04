@@ -59,6 +59,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 		style,
 		// Added by the `allowedBlocks` block support (Advanced panel).
 		allowedBlocks,
+		templateLock,
 	} = attributes;
 	const [ queryLoopUrl ] = useEntityProp( 'postType', postType, 'link', postId );
 	const { hasInnerBlocks } = useSelect(
@@ -85,6 +86,7 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId, 
 	const hoverDecorationLabel = `${ __( 'Decoration' ) } (${ __( 'Hover' ) })`;
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		allowedBlocks,
+		templateLock,
 		renderAppender: hasInnerBlocks
 			? undefined
 			: InnerBlocks.ButtonBlockAppender

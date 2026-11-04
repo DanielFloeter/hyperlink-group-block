@@ -47,6 +47,8 @@ const groupAttributes = {
 		border: { radius: '8px' },
 	},
 	layout: { type: 'constrained' },
+	templateLock: 'contentOnly',
+	allowedBlocks: [ 'core/paragraph' ],
 };
 
 test( 'core/group is replaced, not wrapped', () => {
@@ -66,6 +68,8 @@ test( 'core/group is replaced, not wrapped', () => {
 		textColor: 'contrast',
 		style: groupAttributes.style,
 		layout: { type: 'constrained' },
+		templateLock: 'contentOnly',
+		allowedBlocks: [ 'core/paragraph' ],
 	} );
 	expect( result.attributes.tagName ).toBeUndefined();
 } );
@@ -96,6 +100,8 @@ test( 'Hyperlink Group converts back to core/group without link attributes', () 
 			queryLoopLink: true,
 			anchor: 'hero',
 			backgroundColor: 'primary',
+			templateLock: 'all',
+			allowedBlocks: [ 'core/paragraph' ],
 		},
 		[ paragraph ]
 	);
@@ -107,6 +113,8 @@ test( 'Hyperlink Group converts back to core/group without link attributes', () 
 	expect( result.attributes ).toMatchObject( {
 		anchor: 'hero',
 		backgroundColor: 'primary',
+		templateLock: 'all',
+		allowedBlocks: [ 'core/paragraph' ],
 	} );
 	expect( result.attributes.url ).toBeUndefined();
 	expect( result.attributes.queryLoopLink ).toBeUndefined();
