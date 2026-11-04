@@ -4,6 +4,7 @@
 	"title": "Hyperlink Group",
 	"category": "design",
 	"supports": {
+		"__experimentalOnEnter": true,
 		"html": true,
 		"allowedBlocks": true,
 		"anchor": true,
