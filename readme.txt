@@ -4,7 +4,7 @@ Donate link:       https://www.paypal.com/donate/?hosted_button_id=RSR28JGA4M7JC
 Tags:              clickable, hyperlink, link, card, anchor
 Requires at least: 6.6
 Tested up to:      7.1
-Stable tag:        2.1.0
+Stable tag:        2.1.1
 Requires PHP:      7.2
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -87,6 +87,10 @@ Use the "Tab name" field. In the block sidebar open Advanced and enter a name, e
 5. Transform blocks or a Group Block into a Hyperlink Group Block and back.
 
 == Changelog ==
+
+= 2.1.1 - Nov 4th 2026 =
+* Block options
+* Small editor fixes
 
 = 2.1.0 - Nov 1st 2026 =
 * Native block support, like text, heading or "Link hover color"
